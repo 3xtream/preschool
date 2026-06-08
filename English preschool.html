@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Speakers — English Speaking PAUD</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --mint: #1D9E75; --mint-lt: #E1F5EE; --mint-dk: #0F6E56;
+  --coral: #D85A30; --coral-lt: #FAECE7; --coral-dk: #993C1D;
+  --purple: #7F77DD; --purple-lt: #EEEDFE; --purple-dk: #534AB7;
+  --amber: #BA7517; --amber-lt: #FAEEDA; --amber-dk: #854F0B;
+  --blue: #378ADD; --blue-lt: #E6F1FB; --blue-dk: #185FA5;
+  --bg: #F7FDFA; --card: #fff; --text: #132b1e; --soft: #456b54;
+  --border: #cce8d8; --r: 14px; --rs: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* HEADER */
+.hdr {
+  background: linear-gradient(135deg, #064a35 0%, #0f6e56 45%, #1d9e75 80%, #5dcaa5 100%);
+  padding: 22px 28px 18px; position: relative; overflow: hidden;
+}
+.hdr::before { content:''; position:absolute; top:-30px; right:-10px; width:180px; height:180px; background:rgba(255,255,255,0.05); border-radius:50%; }
+.hdr::after  { content:''; position:absolute; bottom:-40px; left:18%; width:130px; height:130px; background:rgba(255,255,255,0.04); border-radius:50%; }
+.hdr-in { position:relative; z-index:1; max-width:920px; margin:0 auto; }
+.hdr h1 { font-family:'Baloo 2',cursive; font-size:28px; font-weight:800; color:#fff; letter-spacing:-.3px; }
+.hdr h1 em { color:#9FE1CB; font-style:normal; }
+.hdr p { color:rgba(255,255,255,.8); font-size:13px; font-weight:600; margin-top:3px; }
+.hdr-goal { display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:5px 14px; background:rgba(255,255,255,.15); border-radius:20px; font-size:12px; font-weight:800; color:#E1F5EE; border:1px solid rgba(255,255,255,.25); }
+.api-row { display:flex; align-items:center; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.api-row input { flex:1; max-width:360px; padding:8px 13px; border-radius:9px; border:1.5px solid rgba(255,255,255,.3); background:rgba(255,255,255,.14); color:#fff; font-family:'Nunito',sans-serif; font-size:13px; font-weight:600; outline:none; transition:border .2s; }
+.api-row input::placeholder { color:rgba(255,255,255,.5); }
+.api-row input:focus { border-color:rgba(255,255,255,.7); }
+.btn-save { padding:8px 16px; background:rgba(255,255,255,.2); border:1.5px solid rgba(255,255,255,.4); border-radius:9px; color:#fff; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:pointer; transition:background .2s; }
+.btn-save:hover { background:rgba(255,255,255,.35); }
+.api-st { font-size:12px; font-weight:700; padding:5px 12px; border-radius:20px; background:rgba(255,255,255,.15); color:rgba(255,255,255,.8); }
+.api-st.ok { background:rgba(159,225,203,.3); color:#E1F5EE; }
+
+/* NAV */
+.nav-wrap { background:var(--card); border-bottom:1.5px solid var(--border); position:sticky; top:0; z-index:100; }
+.nav { display:flex; max-width:920px; margin:0 auto; overflow-x:auto; }
+.ntab { display:flex; align-items:center; gap:6px; padding:13px 18px; border:none; background:transparent; font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--soft); cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; transition:all .2s; }
+.ntab:hover { color:var(--mint-dk); }
+.ntab.on { color:var(--mint-dk); border-bottom-color:var(--mint); }
+
+/* MAIN */
+.main { max-width:920px; margin:0 auto; padding:26px 22px 70px; }
+.tc { display:none; }
+.tc.on { display:block; }
+
+/* HERO BANNER */
+.hero { display:flex; align-items:flex-start; gap:15px; margin-bottom:24px; padding:18px 20px; border-radius:var(--r); border:1.5px solid var(--border); background:var(--card); }
+.hero-emoji { font-size:42px; line-height:1; flex-shrink:0; }
+.hero h2 { font-family:'Baloo 2',cursive; font-size:21px; font-weight:800; }
+.hero p { font-size:13px; color:var(--soft); margin-top:3px; line-height:1.6; font-weight:600; }
+.tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:9px; }
+.tag { display:inline-flex; align-items:center; gap:4px; padding:4px 11px; border-radius:20px; font-size:11.5px; font-weight:700; }
+
+/* CARD */
+.card { background:var(--card); border:1.5px solid var(--border); border-radius:var(--r); padding:18px 20px; margin-bottom:16px; }
+.ctitle { font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+/* STEP FLOW */
+.steps { display:flex; flex-direction:column; }
+.step { display:flex; gap:13px; align-items:flex-start; padding:12px 0; border-bottom:1px dashed var(--border); }
+.step:last-child { border-bottom:none; }
+.snum { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; flex-shrink:0; }
+.sbody { flex:1; }
+.slabel { font-size:14px; font-weight:800; margin-bottom:2px; }
+.sdesc { font-size:13px; color:var(--soft); line-height:1.5; font-weight:600; }
+
+/* ENGLISH EXAMPLE BOX */
+.eng-box { background:var(--blue-lt); border:1.5px solid #B5D4F4; border-radius:var(--rs); padding:12px 14px; margin-top:10px; }
+.eng-label { font-size:11px; font-weight:800; color:var(--blue-dk); text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px; }
+.eng-line { font-size:13px; font-weight:700; color:var(--blue-dk); line-height:1.7; }
+.eng-line strong { color:#0c447c; }
+.eng-line span { color:var(--soft); font-size:12px; font-weight:600; display:block; margin-left:2px; }
+
+/* AI SECTION */
+.ai-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media(max-width:560px){ .ai-row { grid-template-columns:1fr; } }
+.ai-label { font-size:12.5px; font-weight:800; color:var(--soft); margin-bottom:6px; display:block; }
+.sel { width:100%; padding:9px 12px; border-radius:var(--rs); border:1.5px solid var(--border); font-family:'Nunito',sans-serif; font-size:13px; font-weight:600; color:var(--text); background:var(--bg); outline:none; cursor:pointer; transition:border .2s; }
+.sel:focus { border-color:var(--mint); }
+.inp { width:100%; padding:10px 13px; border-radius:var(--rs); border:1.5px solid var(--border); font-family:'Nunito',sans-serif; font-size:13.5px; font-weight:600; color:var(--text); background:var(--bg); outline:none; transition:border .2s; }
+.inp:focus { border-color:var(--mint); }
+.chips { display:flex; gap:7px; flex-wrap:wrap; margin:10px 0; }
+.chip { padding:6px 13px; border-radius:20px; border:1.5px solid var(--border); background:var(--bg); font-family:'Nunito',sans-serif; font-size:12px; font-weight:700; color:var(--soft); cursor:pointer; transition:all .18s; }
+.chip:hover,.chip.on { background:var(--mint-dk); border-color:var(--mint-dk); color:#fff; }
+
+/* BUTTONS */
+.btn { display:inline-flex; align-items:center; gap:7px; padding:10px 20px; border-radius:var(--rs); border:none; font-family:'Nunito',sans-serif; font-size:13.5px; font-weight:800; cursor:pointer; transition:all .18s; }
+.btn-p { background:var(--mint-dk); color:#fff; }
+.btn-p:hover { background:var(--mint); transform:translateY(-1px); }
+.btn-p:disabled { background:#9ac4b0; cursor:not-allowed; transform:none; }
+.btn-o { background:transparent; border:1.5px solid var(--border); color:var(--soft); }
+.btn-o:hover { border-color:var(--mint); color:var(--mint-dk); }
+
+/* AI RESULT */
+.result { margin-top:14px; border-radius:var(--rs); border:1.5px solid var(--border); overflow:hidden; display:none; }
+.result.on { display:block; }
+.rhead { display:flex; align-items:center; gap:7px; padding:9px 13px; background:var(--mint-lt); font-size:12px; font-weight:800; color:var(--mint-dk); }
+.rbody { padding:16px; font-size:13.5px; line-height:1.75; color:var(--text); font-weight:600; background:var(--card); white-space:pre-wrap; }
+
+/* LOADING */
+.ld { display:inline-flex; gap:4px; align-items:center; }
+.ld span { width:6px; height:6px; border-radius:50%; background:var(--mint); animation:bk 1.2s infinite ease-in-out; }
+.ld span:nth-child(2){ animation-delay:.2s; }
+.ld span:nth-child(3){ animation-delay:.4s; }
+@keyframes bk { 0%,80%,100%{transform:scale(.7);opacity:.5;} 40%{transform:scale(1.1);opacity:1;} }
+
+/* TPR CARDS */
+.tpr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:9px; }
+.tpr-c { text-align:center; padding:15px 8px; border-radius:var(--rs); border:1.5px solid var(--border); background:var(--card); cursor:pointer; transition:all .2s; }
+.tpr-c:hover { border-color:var(--mint); transform:translateY(-2px); }
+.tpr-c.on { border-color:var(--mint-dk); background:var(--mint-lt); }
+.tpr-icon { font-size:30px; margin-bottom:6px; }
+.tpr-en { font-size:14px; font-weight:800; color:var(--text); }
+.tpr-id { font-size:11px; font-weight:600; color:var(--soft); margin-top:2px; }
+.tpr-box { display:none; margin-top:14px; padding:16px; border-radius:var(--rs); background:var(--mint-lt); border:1.5px solid #9FE1CB; text-align:center; }
+.tpr-box.on { display:block; }
+.tpr-big { font-family:'Baloo 2',cursive; font-size:38px; font-weight:800; color:var(--mint-dk); }
+.tpr-instr { font-size:13px; font-weight:700; color:var(--mint-dk); margin-top:6px; }
+.tpr-say { margin-top:8px; display:inline-flex; align-items:center; gap:5px; padding:5px 14px; background:var(--mint-dk); color:#fff; border-radius:20px; font-size:12px; font-weight:800; }
+
+/* PEER STEPPER */
+.peer { display:flex; flex-direction:column; gap:10px; }
+.peer-item { display:flex; gap:13px; padding:13px 15px; border-radius:var(--rs); border:1.5px solid var(--border); background:var(--bg); transition:all .2s; }
+.peer-item.hi { border-color:var(--mint); background:var(--mint-lt); }
+.peer-ltr { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; flex-shrink:0; color:#fff; }
+.peer-body .pname { font-size:14px; font-weight:800; margin-bottom:2px; }
+.peer-body .pdesc { font-size:12.5px; color:var(--soft); font-weight:600; line-height:1.5; }
+
+/* ORACY GRID */
+.oracy-g { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+@media(max-width:500px){ .oracy-g { grid-template-columns:1fr; } }
+.od { padding:15px; border-radius:var(--rs); border:1.5px solid; }
+.od-icon { font-size:26px; margin-bottom:7px; }
+.od-title { font-size:14px; font-weight:800; margin-bottom:3px; }
+.od-desc { font-size:12px; font-weight:600; line-height:1.5; }
+
+/* SHOW-TELL */
+.st-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:9px; }
+.st-item { text-align:center; padding:13px; border-radius:var(--rs); border:1.5px solid var(--border); background:var(--card); cursor:pointer; transition:all .2s; }
+.st-item:hover { border-color:var(--purple); transform:translateY(-2px); }
+.st-item.on { border-color:var(--purple-dk); background:var(--purple-lt); }
+.st-emoji { font-size:28px; margin-bottom:6px; }
+.st-name { font-size:12.5px; font-weight:800; }
+.st-name-en { font-size:11px; font-weight:700; color:var(--soft); margin-top:2px; }
+
+/* HOME GRID */
+.home-g { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:13px; margin-top:18px; }
+.hcard { border-radius:var(--r); padding:18px; border:1.5px solid var(--border); cursor:pointer; transition:all .2s; background:var(--card); }
+.hcard:hover { transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,.09); }
+.hcard-emoji { font-size:36px; margin-bottom:10px; display:block; }
+.hcard-title { font-family:'Baloo 2',cursive; font-size:16px; font-weight:800; margin-bottom:4px; }
+.hcard-sub { font-size:12px; font-weight:600; line-height:1.5; }
+.hcard-tag { margin-top:10px; display:inline-block; font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px; }
+
+/* VOCAB CARD */
+.vocab-g { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:9px; }
+.vc { padding:13px; border-radius:var(--rs); border:1.5px solid var(--border); background:var(--card); }
+.vc-en { font-size:17px; font-weight:800; color:var(--mint-dk); }
+.vc-id { font-size:12px; font-weight:600; color:var(--soft); margin-top:3px; }
+.vc-ex { font-size:11.5px; font-weight:700; color:var(--text); margin-top:6px; font-style:italic; border-top:1px dashed var(--border); padding-top:6px; }
+
+/* TIP BOX */
+.tip { display:flex; gap:10px; padding:11px 13px; border-radius:var(--rs); background:var(--amber-lt); border:1.5px solid #FAC775; margin-top:12px; }
+.tip-ic { font-size:16px; flex-shrink:0; margin-top:1px; }
+.tip p { font-size:12.5px; font-weight:700; color:#4A2800; line-height:1.5; }
+
+/* SCORE BAND */
+.level-chips { display:flex; gap:7px; flex-wrap:wrap; }
+.lchip { padding:5px 13px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; border:1.5px solid transparent; transition:all .2s; }
+.lchip.on { border-color:currentColor; }
+
+/* TOAST */
+.toast { position:fixed; bottom:22px; right:22px; background:var(--mint-dk); color:#fff; padding:11px 18px; border-radius:var(--rs); font-size:13px; font-weight:800; z-index:9999; transform:translateY(80px); transition:transform .3s; box-shadow:0 4px 18px rgba(15,110,86,.3); }
+.toast.on { transform:translateY(0); }
+
+.divider { height:1px; background:var(--border); margin:16px 0; }
+.mt8 { margin-top:8px; }
+.mt12 { margin-top:12px; }
+.mt14 { margin-top:14px; }
+
+/* Container Utama berbentuk Grid */
+.sere-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  gap: 20px;
+  padding: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+}
+
+/* Desain Dasar Kartu */
+.sere-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.sere-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Judul di dalam Kartu */
+.sere-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f0f0;
+  color: #333333;
+}
+
+/* Isi dari Kartu */
+.sere-card-body {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+}
+
+/* Variasi Warna Border Atas Kartu (Meniru Mockup Gambar) */
+.card-objectives { border-top: 6px solid #e74c3c; }
+.card-stimulate { border-top: 6px solid #3498db; }
+.card-encourage { border-top: 6px solid #f1c40f; }
+.card-respond { border-top: 6px solid #2ecc71; }
+.card-expand { border-top: 6px solid #9b59b6; }
+.card-dialogue { border-top: 6px solid #1abc9c; }
+.card-vocabulary { border-top: 6px solid #34495e; }
+.card-tips { border-top: 6px solid #e67e22; }
+
+/* Warna khusus untuk setiap kartu TPR */
+.card-tpr-word { border-top: 6px solid #2ecc71; } /* Hijau untuk kosakata */
+.card-tpr-flow { border-top: 6px solid #34495e; } /* Abu-abu untuk urutan sesi */
+.card-tpr-song { border-top: 6px solid #9b59b6; } /* Ungu untuk lagu/chant */
+.card-tpr-tips { border-top: 6px solid #e67e22; } /* Jingga untuk tips guru */
+
+/* Warna khusus untuk setiap kartu Oracy */
+.card-oracy-name { border-top: 6px solid #e74c3c; }
+.card-oracy-desc { border-top: 6px solid #3498db; }
+.card-oracy-tools { border-top: 6px solid #95a5a6; }
+.card-oracy-duration { border-top: 6px solid #f1c40f; }
+.card-oracy-steps { border-top: 6px solid #2ecc71; }
+.card-oracy-phrases { border-top: 6px solid #9b59b6; }
+.card-oracy-assess { border-top: 6px solid #1abc9c; }
+.card-oracy-diff { border-top: 6px solid #34495e; }
+.card-oracy-games { border-top: 6px solid #e67e22; }
+
+/* Warna khusus untuk setiap kartu Dialogic Reading */
+.card-d-session { border-top: 6px solid #2c3e50; }
+.card-d-before { border-top: 6px solid #f1c40f; }
+.card-d-during { border-top: 6px solid #2980b9; }
+.card-d-cycle1 { border-top: 6px solid #16a085; }
+.card-d-cycle2 { border-top: 6px solid #27ae60; }
+.card-d-cycle3 { border-top: 6px solid #d35400; }
+.card-d-after { border-top: 6px solid #8e44ad; }
+.card-d-vocab { border-top: 6px solid #7f8c8d; }
+.card-d-dialogue { border-top: 6px solid #bdc3c7; }
+.card-d-notes { border-top: 6px solid #e74c3c; }
+
+/* Warna khusus untuk setiap kartu Vocab Bank */
+.card-vocab-word { border-top: 6px solid #2ecc71; }   /* Hijau untuk item kata */
+.card-vocab-song { border-top: 6px solid #9b59b6; }   /* Ungu untuk lagu/chant */
+.card-vocab-path { border-top: 6px solid #f1c40f; }   /* Kuning untuk tingkatan progres */
+.card-vocab-assess { border-top: 6px solid #1abc9c; } /* Tosca untuk checklist asesmen */
+
+/* Warna khusus untuk setiap kartu Weekly Planner */
+.card-p-header { border-top: 6px solid #2c3e50; }
+.card-p-objectives { border-top: 6px solid #e74c3c; }
+.card-p-vocab { border-top: 6px solid #7f8c8d; }
+.card-p-mon { border-top: 6px solid #1abc9c; }
+.card-p-tue { border-top: 6px solid #3498db; }
+.card-p-wed { border-top: 6px solid #9b59b6; }
+.card-p-thu { border-top: 6px solid #d35400; }
+.card-p-fri { border-top: 6px solid #2ecc71; }
+.card-p-tracker { border-top: 6px solid #34495e; }
+.card-p-assess { border-top: 6px solid #95a5a6; }
+.card-p-diff { border-top: 6px solid #f1c40f; }
+.card-p-chant { border-top: 6px solid #e67e22; }
+
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-in">
+    <h1>🗣️ Little Speakers — <em>English Speaking for PAUD</em></h1>
+    <p>Framework Berbicara Bahasa Inggris untuk Anak Usia Dini · Didukung Gemini AI</p>
+    <div class="hdr-goal">🎯 Goal: Anak PAUD berani & mampu berbicara dalam Bahasa Inggris</div>
+    <div class="api-row">
+      <input type="password" id="apiKey" placeholder="Masukkan Google Gemini API Key..." />
+      <button class="btn-save" onclick="saveKey()">Simpan</button>
+      <span class="api-st" id="apiSt">⬡ Belum terhubung</span>
+    </div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="goTab('home',this)">🏠 Home</button>
+    <button class="ntab" onclick="goTab('sere',this)">💬 SERE</button>
+    <button class="ntab" onclick="goTab('tpr',this)">🏃 TPR</button>
+    <button class="ntab" onclick="goTab('oracy',this)">🎯 Oracy</button>
+    <button class="ntab" onclick="goTab('dialogic',this)">📖 Dialogic</button>
+    <button class="ntab" onclick="goTab('vocab',this)">📚 Vocab Bank</button>
+    <button class="ntab" onclick="goTab('planner',this)">📋 Lesson Plan</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ======= HOME ======= -->
+<div id="tc-home" class="tc on">
+  <div class="hero">
+    <span class="hero-emoji">🗣️</span>
+    <div>
+      <h2>English Speaking Framework untuk PAUD</h2>
+      <p>Panduan berbasis AI untuk membantu guru dan orang tua membangun kemampuan <strong>speaking Bahasa Inggris</strong> anak usia dini melalui 4 framework terbukti — dikemas dalam aktivitas bermain yang menyenangkan.</p>
+      <div class="tags">
+        <span class="tag" style="background:var(--mint-lt);color:var(--mint-dk);">💬 SERE Framework</span>
+        <span class="tag" style="background:var(--amber-lt);color:var(--amber-dk);">🏃 Total Physical Response</span>
+        <span class="tag" style="background:var(--purple-lt);color:var(--purple-dk);">🎯 Cambridge Oracy</span>
+        <span class="tag" style="background:var(--coral-lt);color:var(--coral-dk);">📖 Dialogic Reading</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#9FE1CB;">
+    <div class="ctitle"><span class="dot" style="background:var(--mint);"></span> Mengapa English Speaking di PAUD?</div>
+    <div class="steps">
+      <div class="step">
+        <div class="snum" style="background:var(--mint-lt);color:var(--mint-dk);">🧠</div>
+        <div class="sbody">
+          <div class="slabel">Window of Opportunity</div>
+          <div class="sdesc">Usia 0–6 tahun adalah periode emas akuisisi bahasa. Otak anak menyerap bahasa baru jauh lebih mudah dibanding usia dewasa — termasuk pengucapan dan intonasi native-like.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="snum" style="background:var(--amber-lt);color:var(--amber-dk);">🎮</div>
+        <div class="sbody">
+          <div class="slabel">Play-Based Learning</div>
+          <div class="sdesc">Anak PAUD belajar bahasa paling efektif lewat bermain, bernyanyi, bergerak, dan cerita — bukan hafalan. Framework ini mendesain English speaking lewat aktivitas yang natural dan menyenangkan.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="snum" style="background:var(--purple-lt);color:var(--purple-dk);">🗣️</div>
+        <div class="sbody">
+          <div class="slabel">Speaking First, Reading Later</div>
+          <div class="sdesc">Urutan alami akuisisi bahasa: Listening → Speaking → Reading → Writing. Framework ini memprioritaskan kemampuan <em>berbicara</em> sebelum membaca/menulis.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-g">
+    <div class="hcard" onclick="goTabId('sere')" style="border-color:#9FE1CB;">
+      <span class="hcard-emoji">💬</span>
+      <div class="hcard-title" style="color:var(--mint-dk);">SERE Framework</div>
+      <div class="hcard-sub" style="color:var(--soft);">Stimulate → Encourage → Respond → Expand. Guru memancing speaking Bahasa Inggris anak secara alami.</div>
+      <span class="hcard-tag" style="background:var(--mint-lt);color:var(--mint-dk);">Interaksi 2 Arah</span>
+    </div>
+    <div class="hcard" onclick="goTabId('tpr')" style="border-color:#FAC775;">
+      <span class="hcard-emoji">🏃</span>
+      <div class="hcard-title" style="color:var(--amber-dk);">TPR Method</div>
+      <div class="hcard-sub" style="color:var(--soft);">Ucapkan kata Bahasa Inggris sambil bergerak. "Jump!", "Fly!", "Big!" — kosakata masuk lewat tubuh.</div>
+      <span class="hcard-tag" style="background:var(--amber-lt);color:var(--amber-dk);">Gerak + Kata</span>
+    </div>
+    <div class="hcard" onclick="goTabId('oracy')" style="border-color:#AFA9EC;">
+      <span class="hcard-emoji">🎯</span>
+      <div class="hcard-title" style="color:var(--purple-dk);">Oracy Cambridge</div>
+      <div class="hcard-sub" style="color:var(--soft);">4 dimensi speaking: fisik, linguistik, kognitif, sosial. Show & Tell dalam Bahasa Inggris.</div>
+      <span class="hcard-tag" style="background:var(--purple-lt);color:var(--purple-dk);">4 Dimensi</span>
+    </div>
+    <div class="hcard" onclick="goTabId('dialogic')" style="border-color:#F0997B;">
+      <span class="hcard-emoji">📖</span>
+      <div class="hcard-title" style="color:var(--coral-dk);">Dialogic Reading</div>
+      <div class="hcard-sub" style="color:var(--soft);">Anak bercerita dalam Bahasa Inggris dari picture book. Teknik PEER mendorong kalimat makin panjang.</div>
+      <span class="hcard-tag" style="background:var(--coral-lt);color:var(--coral-dk);">PEER Technique</span>
+    </div>
+    <div class="hcard" onclick="goTabId('vocab')" style="border-color:#85B7EB;">
+      <span class="hcard-emoji">📚</span>
+      <div class="hcard-title" style="color:var(--blue-dk);">Vocab Bank</div>
+      <div class="hcard-sub" style="color:var(--soft);">Generate daftar kosakata Bahasa Inggris per tema lengkap dengan contoh kalimat sederhana untuk anak PAUD.</div>
+      <span class="hcard-tag" style="background:var(--blue-lt);color:var(--blue-dk);">Kosakata Siap Pakai</span>
+    </div>
+    <div class="hcard" onclick="goTabId('planner')" style="border-color:#9FE1CB;">
+      <span class="hcard-emoji">📋</span>
+      <div class="hcard-title" style="color:var(--mint-dk);">Lesson Plan</div>
+      <div class="hcard-sub" style="color:var(--soft);">Generate rencana pelajaran English speaking mingguan yang mengintegrasikan semua 4 framework.</div>
+      <span class="hcard-tag" style="background:var(--mint-lt);color:var(--mint-dk);">Rencana Lengkap</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======= SERE ======= -->
+<div id="tc-sere" class="tc">
+  <div class="hero">
+    <span class="hero-emoji">💬</span>
+    <div>
+      <h2>Framework SERE — English Speaking</h2>
+      <p>Guru memancing anak berbicara Bahasa Inggris secara alami melalui 4 langkah: Stimulate → Encourage → Respond → Expand. Tidak memaksa, tapi menginspirasi!</p>
+      <div class="tags">
+        <span class="tag" style="background:var(--mint-lt);color:var(--mint-dk);">💡 Stimulate</span>
+        <span class="tag" style="background:var(--amber-lt);color:var(--amber-dk);">🙌 Encourage</span>
+        <span class="tag" style="background:var(--purple-lt);color:var(--purple-dk);">👂 Respond</span>
+        <span class="tag" style="background:var(--coral-lt);color:var(--coral-dk);">🔭 Expand</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--mint);"></span> 4 Langkah SERE untuk English Speaking</div>
+    <div class="steps">
+      <div class="step">
+        <div class="snum" style="background:var(--mint-lt);color:var(--mint-dk);">S</div>
+        <div class="sbody">
+          <div class="slabel" style="color:var(--mint-dk);">Stimulate — Pancing Rasa Ingin Tahu</div>
+          <div class="sdesc">Tunjukkan gambar menarik, mainan, atau flashcard bergambar. Guru berbicara Bahasa Inggris dengan ekspresi besar. "Wow! Look at this! What is this?" sambil menunjuk dengan antusias.</div>
+          <div class="eng-box">
+            <div class="eng-label">🇬🇧 Contoh Frasa Guru</div>
+            <div class="eng-line"><strong>"Look! Look! What do you see?"</strong> <span>= Lihat! Lihat! Apa yang kamu lihat?</span></div>
+            <div class="eng-line"><strong>"Wow, it's so big! So colorful!"</strong> <span>= Wah, sangat besar! Sangat berwarna-warni!</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="snum" style="background:var(--amber-lt);color:var(--amber-dk);">E</div>
+        <div class="sbody">
+          <div class="slabel" style="color:var(--amber-dk);">Encourage — Dorong dengan Pertanyaan Terbuka</div>
+          <div class="sdesc">Ajukan pertanyaan Bahasa Inggris yang jawabannya lebih dari sekadar "yes/no". Gunakan ekspresi wajah dan gesture untuk membantu pemahaman. Sabar menunggu jawaban.</div>
+          <div class="eng-box">
+            <div class="eng-label">🇬🇧 Contoh Pertanyaan Terbuka</div>
+            <div class="eng-line"><strong>"What color is it?"</strong> <span>= Apa warnanya?</span></div>
+            <div class="eng-line"><strong>"What does the bunny do?"</strong> <span>= Apa yang dilakukan kelincinya?</span></div>
+            <div class="eng-line"><strong>"Do you like it? Why?"</strong> <span>= Kamu suka? Kenapa?</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="snum" style="background:var(--purple-lt);color:var(--purple-dk);">R</div>
+        <div class="sbody">
+          <div class="slabel" style="color:var(--purple-dk);">Respond — Dengarkan & Apresiasi</div>
+          <div class="sdesc">Terima SEMUA jawaban anak dengan hangat — termasuk jawaban dalam Bahasa Indonesia atau hanya satu kata. Apresiasi usaha, bukan kesempurnaan. Jangan pernah memperbaiki langsung di depan teman.</div>
+          <div class="eng-box">
+            <div class="eng-label">🇬🇧 Frasa Apresiasi</div>
+            <div class="eng-line"><strong>"Good job! Excellent!"</strong> <span>= Bagus! Luar biasa!</span></div>
+            <div class="eng-line"><strong>"I like that answer! Well done!"</strong> <span>= Suka jawabannya! Hebat!</span></div>
+            <div class="eng-line"><strong>"Yes! That's right, it IS a cat!"</strong> <span>= Ya! Benar, itu memang kucing! (confirm + repeat)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="snum" style="background:var(--coral-lt);color:var(--coral-dk);">E</div>
+        <div class="sbody">
+          <div class="slabel" style="color:var(--coral-dk);">Expand — Perluas ke Kalimat Lebih Kaya</div>
+          <div class="sdesc">Ambil kata/kalimat anak, ulangi dengan benar, lalu tambahkan kosakata baru. Ini cara paling alami mengajarkan grammar tanpa menghukum. Anak mendengar model yang benar.</div>
+          <div class="eng-box">
+            <div class="eng-label">🇬🇧 Contoh Expansion</div>
+            <div class="eng-line"><strong>Anak: "Cat... sleep"</strong></div>
+            <div class="eng-line"><strong>Guru: "Yes! The cat is sleeping. The fluffy cat is sleeping under the tree!"</strong> <span>= Guru memperluas + menambah kosakata: fluffy, under, tree</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--blue);"></span> ✨ Generate Panduan SERE English Speaking</div>
+    <div class="ai-row">
+      <div>
+        <label class="ai-label">🎂 Usia Anak</label>
+        <select id="sere-age" class="sel">
+          <option>2–3 years old</option>
+          <option selected>3–4 years old</option>
+          <option>4–5 years old</option>
+          <option>5–6 years old</option>
+        </select>
+      </div>
+      <div>
+        <label class="ai-label">📡 Media Stimulasi</label>
+        <select id="sere-media" class="sel">
+          <option>Picture cards / flashcards</option>
+          <option>English picture book</option>
+          <option>Real objects / realia</option>
+          <option>Puppet / soft toy</option>
+          <option>Short English video clip</option>
+          <option>English song / chant</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🌈 Tema Bahasa Inggris</label>
+      <div class="chips" id="sere-tc">
+        <span class="chip on" onclick="pickChip(this,'sere-t')">🐾 Animals</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">🌈 Colors & Shapes</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">👨‍👩‍👧 My Family</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">🍎 Food & Fruits</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">🚗 Transport</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">🏠 My Body</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">☁️ Weather</span>
+        <span class="chip" onclick="pickChip(this,'sere-t')">🌿 Nature</span>
+      </div>
+      <input type="text" class="inp" id="sere-custom" placeholder="Or type your own topic..." />
+    </div>
+    <div class="mt14">
+      <button class="btn btn-p" onclick="doSERE()" id="btn-sere">✨ Generate SERE Lesson Guide</button>
+    </div>
+    <div class="result" id="sere-res">
+      <div class="rhead">✦ SERE English Speaking Guide — Gemini AI</div>
+      <div class="rbody" id="sere-res-b"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= TPR ======= -->
+<div id="tc-tpr" class="tc">
+  <div class="hero">
+    <span class="hero-emoji">🏃</span>
+    <div>
+      <h2>TPR — Total Physical Response (English)</h2>
+      <p>Anak PAUD menginternalisasi kosakata Bahasa Inggris lewat gerakan tubuh. <strong>"Jump!"</strong> sambil melompat, <strong>"Big!"</strong> sambil merentangkan tangan — kata masuk ke memori motorik!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--amber);"></span> Klik Kata → Cara Mengajarkan</div>
+    <div class="tpr-grid" id="tpr-grid"></div>
+    <div class="tpr-box" id="tpr-box">
+      <div class="tpr-big" id="tpr-big"></div>
+      <div class="tpr-instr" id="tpr-instr"></div>
+      <div class="tpr-say" id="tpr-say"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--blue);"></span> ✨ Generate Kosakata TPR English</div>
+    <div class="ai-row">
+      <div>
+        <label class="ai-label">🎂 Usia Anak</label>
+        <select id="tpr-age" class="sel">
+          <option>2–3 years old</option>
+          <option selected>3–4 years old</option>
+          <option>4–5 years old</option>
+          <option>5–6 years old</option>
+        </select>
+      </div>
+      <div>
+        <label class="ai-label">🔢 Jumlah Kata</label>
+        <select id="tpr-count" class="sel">
+          <option>5 words</option>
+          <option selected>8 words</option>
+          <option>10 words</option>
+          <option>12 words</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🌈 Tema</label>
+      <div class="chips" id="tpr-tc">
+        <span class="chip on" onclick="pickChip(this,'tpr-t')">🐾 Animals</span>
+        <span class="chip" onclick="pickChip(this,'tpr-t')">💪 Action Verbs</span>
+        <span class="chip" onclick="pickChip(this,'tpr-t')">📏 Adjectives</span>
+        <span class="chip" onclick="pickChip(this,'tpr-t')">🌿 Nature</span>
+        <span class="chip" onclick="pickChip(this,'tpr-t')">🏠 Daily Routines</span>
+        <span class="chip" onclick="pickChip(this,'tpr-t')">🎵 Music & Dance</span>
+      </div>
+    </div>
+    <div class="mt14">
+      <button class="btn btn-p" onclick="doTPR()" id="btn-tpr">✨ Generate TPR Word List</button>
+    </div>
+    <div class="result" id="tpr-res">
+      <div class="rhead">✦ TPR English Vocabulary — Gemini AI</div>
+      <div class="rbody" id="tpr-res-b"></div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <span class="tip-ic">💡</span>
+    <p>Tips: Selalu ucapkan kata dalam Bahasa Inggris dengan jelas dan ekspresif. Guru melakukan gerakan duluan, anak mengikuti. Ulangi setiap kata 3–5x. Anak tidak perlu bisa mengucapkan dengan sempurna — yang penting berani mencoba!</p>
+  </div>
+</div>
+
+<!-- ======= ORACY ======= -->
+<div id="tc-oracy" class="tc">
+  <div class="hero">
+    <span class="hero-emoji">🎯</span>
+    <div>
+      <h2>Cambridge Oracy — English Speaking Skills</h2>
+      <p>4 dimensi kemampuan berbicara Bahasa Inggris yang bisa dilatih sejak PAUD melalui permainan, drama, tebak kata, dan sesi Show & Tell dalam English.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--purple);"></span> 4 Dimensi Oracy untuk English Speaking</div>
+    <div class="oracy-g">
+      <div class="od" style="background:var(--mint-lt);border-color:#9FE1CB;">
+        <div class="od-icon">🗣️</div>
+        <div class="od-title" style="color:var(--mint-dk);">Physical (Fisik)</div>
+        <div class="od-desc" style="color:#3a6b52;">Kejelasan pengucapan (pronunciation), volume suara, ekspresi wajah, kontak mata. Dilatih lewat role-play dan drama pendek dalam English.</div>
+      </div>
+      <div class="od" style="background:var(--purple-lt);border-color:#AFA9EC;">
+        <div class="od-icon">📚</div>
+        <div class="od-title" style="color:var(--purple-dk);">Linguistic (Linguistik)</div>
+        <div class="od-desc" style="color:var(--purple-dk);">Kosakata English, pola kalimat sederhana (I see a..., It is..., I like...). Dikembangkan lewat English songs, chants, dan word games.</div>
+      </div>
+      <div class="od" style="background:var(--amber-lt);border-color:#FAC775;">
+        <div class="od-icon">🧠</div>
+        <div class="od-title" style="color:var(--amber-dk);">Cognitive (Kognitif)</div>
+        <div class="od-desc" style="color:var(--amber-dk);">Kemampuan menyampaikan ide dalam English. "I think the cat is sad because..." Dilatih lewat picture discussion dalam English.</div>
+      </div>
+      <div class="od" style="background:var(--coral-lt);border-color:#F0997B;">
+        <div class="od-icon">❤️</div>
+        <div class="od-title" style="color:var(--coral-dk);">Social-Emotional (Sosial-Emosional)</div>
+        <div class="od-desc" style="color:var(--coral-dk);">Berani berbicara English di depan orang lain, bergantian, menghargai giliran. Dilatih lewat Show & Tell dalam English.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Show & Tell English -->
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--purple);"></span> 🎤 English Show & Tell Simulator</div>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:12px;font-weight:600;">Pilih benda yang dibawa anak → Generate panduan Show & Tell dalam Bahasa Inggris:</p>
+    <div class="st-grid">
+      <div class="st-item" onclick="pickST(this,'My favourite toy')"><div class="st-emoji">🧸</div><div class="st-name">Toy / Boneka</div><div class="st-name-en">My favourite toy</div></div>
+      <div class="st-item" onclick="pickST(this,'My toy car')"><div class="st-emoji">🚗</div><div class="st-name">Toy Car</div><div class="st-name-en">My toy car</div></div>
+      <div class="st-item" onclick="pickST(this,'My favourite book')"><div class="st-emoji">📗</div><div class="st-name">Book / Buku</div><div class="st-name-en">My favourite book</div></div>
+      <div class="st-item" onclick="pickST(this,'My family photo')"><div class="st-emoji">📸</div><div class="st-name">Family Photo</div><div class="st-name-en">My family photo</div></div>
+      <div class="st-item" onclick="pickST(this,'My pet')"><div class="st-emoji">🐱</div><div class="st-name">My Pet</div><div class="st-name-en">My pet</div></div>
+      <div class="st-item" onclick="pickST(this,'My favourite food')"><div class="st-emoji">🍎</div><div class="st-name">Favourite Food</div><div class="st-name-en">My favourite food</div></div>
+    </div>
+    <div class="mt12">
+      <input type="text" class="inp" id="st-custom" placeholder="Or type in English: My favourite superhero..." />
+    </div>
+    <div class="mt14" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <select id="st-age" class="sel" style="width:auto;min-width:140px;">
+        <option>3–4 years old</option>
+        <option selected>4–5 years old</option>
+        <option>5–6 years old</option>
+      </select>
+      <button class="btn btn-p" onclick="doShowTell()" id="btn-st">✨ Generate English Show & Tell Guide</button>
+    </div>
+    <div class="result" id="st-res">
+      <div class="rhead">✦ English Show & Tell Guide — Gemini AI</div>
+      <div class="rbody" id="st-res-b"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--blue);"></span> ✨ Generate Aktivitas Oracy English</div>
+    <div class="ai-row">
+      <div>
+        <label class="ai-label">🎯 Fokus Dimensi</label>
+        <select id="o-dim" class="sel">
+          <option>Physical — pronunciation & expression</option>
+          <option>Linguistic — vocabulary & sentence patterns</option>
+          <option>Cognitive — describing & explaining in English</option>
+          <option>Social-Emotional — confidence & turn-taking</option>
+          <option>All 4 dimensions</option>
+        </select>
+      </div>
+      <div>
+        <label class="ai-label">🎂 Usia Anak</label>
+        <select id="o-age" class="sel">
+          <option>3–4 years old</option>
+          <option selected>4–5 years old</option>
+          <option>5–6 years old</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt14">
+      <button class="btn btn-p" onclick="doOracy()" id="btn-oracy">✨ Generate English Oracy Activity</button>
+    </div>
+    <div class="result" id="o-res">
+      <div class="rhead">✦ English Oracy Activity — Gemini AI</div>
+      <div class="rbody" id="o-res-b"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= DIALOGIC ======= -->
+<div id="tc-dialogic" class="tc">
+  <div class="hero">
+    <span class="hero-emoji">📖</span>
+    <div>
+      <h2>Dialogic Reading — English Picture Books</h2>
+      <p>Anak tidak hanya mendengar — mereka menjadi storyteller dalam Bahasa Inggris! Teknik PEER mendorong anak berbicara English makin banyak dan makin kaya setiap sesi.</p>
+      <div class="tags">
+        <span class="tag" style="background:var(--coral-lt);color:var(--coral-dk);">P — Prompt</span>
+        <span class="tag" style="background:var(--amber-lt);color:var(--amber-dk);">E — Evaluate</span>
+        <span class="tag" style="background:var(--mint-lt);color:var(--mint-dk);">E — Expand</span>
+        <span class="tag" style="background:var(--purple-lt);color:var(--purple-dk);">R — Repeat</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--coral);"></span> Teknik PEER dalam English Dialogic Reading</div>
+    <div class="peer">
+      <div class="peer-item hi">
+        <div class="peer-ltr" style="background:var(--coral);">P</div>
+        <div class="peer-body">
+          <div class="pname">Prompt — Pancing dalam English</div>
+          <div class="pdesc">Tunjuk gambar di buku dan tanya dalam English. Gunakan wh-questions sederhana.</div>
+          <div class="eng-box mt8">
+            <div class="eng-label">🇬🇧 Contoh Prompt</div>
+            <div class="eng-line"><strong>"What do you see here?"</strong> <span>= Apa yang kamu lihat di sini?</span></div>
+            <div class="eng-line"><strong>"Who is this? What is the animal doing?"</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="peer-item">
+        <div class="peer-ltr" style="background:var(--amber);">E</div>
+        <div class="peer-body">
+          <div class="pname">Evaluate — Apresiasi Jawaban</div>
+          <div class="pdesc">Terima jawaban anak dalam bahasa apapun. Apresiasi lalu model Bahasa Inggris yang benar.</div>
+          <div class="eng-box mt8">
+            <div class="eng-label">🇬🇧 Contoh Evaluasi</div>
+            <div class="eng-line"><strong>"Yes! Great! It IS a dog!"</strong> <span>= Ya! Luar biasa! Itu memang anjing!</span></div>
+            <div class="eng-line"><strong>"Clever! You said 'big' — yes, big elephant!"</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="peer-item">
+        <div class="peer-ltr" style="background:var(--mint);">E</div>
+        <div class="peer-body">
+          <div class="pname">Expand — Perluas Kalimat English Anak</div>
+          <div class="pdesc">Ambil kata anak, jadikan kalimat English yang lebih lengkap dan kaya kosakata.</div>
+          <div class="eng-box mt8">
+            <div class="eng-label">🇬🇧 Contoh Expansion</div>
+            <div class="eng-line"><strong>Child: "Dog... run"</strong></div>
+            <div class="eng-line"><strong>Teacher: "Yes! The brown dog is running fast in the park!"</strong> <span>Tambah: brown, running, fast, in the park</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="peer-item">
+        <div class="peer-ltr" style="background:var(--purple);">R</div>
+        <div class="peer-body">
+          <div class="pname">Repeat — Anak Ulangi Kalimat Lengkap</div>
+          <div class="pdesc">Minta anak mengulangi versi kalimat yang lebih kaya. Ini memperkuat English vocabulary dan pola kalimat.</div>
+          <div class="eng-box mt8">
+            <div class="eng-label">🇬🇧 Contoh Repeat</div>
+            <div class="eng-line"><strong>"Can you say it? The brown dog is running fast!"</strong></div>
+            <div class="eng-line"><strong>"Everybody say it together: The brown dog is running FAST!"</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--blue);"></span> ✨ Generate Sesi Dialogic Reading English</div>
+    <div class="ai-row">
+      <div>
+        <label class="ai-label">📚 Jenis Buku</label>
+        <select id="d-book" class="sel">
+          <option>Animal picture book</option>
+          <option>Classic fairy tale (English)</option>
+          <option>Nature & science picture book</option>
+          <option>Family & friendship story</option>
+          <option>Adventure picture book</option>
+          <option>Wordless picture book</option>
+        </select>
+      </div>
+      <div>
+        <label class="ai-label">🎂 Usia Anak</label>
+        <select id="d-age" class="sel">
+          <option>2–3 years old</option>
+          <option selected>3–4 years old</option>
+          <option>4–5 years old</option>
+          <option>5–6 years old</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt12">
+      <label class="ai-label">📖 Judul Buku (opsional)</label>
+      <input type="text" class="inp" id="d-title" placeholder="e.g. The Very Hungry Caterpillar, Brown Bear..." />
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🎯 Fokus English Speaking</label>
+      <div class="chips" id="d-fc">
+        <span class="chip on" onclick="pickChip(this,'d-f')">🗣️ New Vocabulary</span>
+        <span class="chip" onclick="pickChip(this,'d-f')">💭 Story Prediction</span>
+        <span class="chip" onclick="pickChip(this,'d-f')">❤️ Character Feelings</span>
+        <span class="chip" onclick="pickChip(this,'d-f')">🔍 Picture Description</span>
+        <span class="chip" onclick="pickChip(this,'d-f')">🌟 Story Retelling</span>
+      </div>
+    </div>
+    <div class="mt14">
+      <button class="btn btn-p" onclick="doDialogic()" id="btn-dialogic">✨ Generate Dialogic Reading Session</button>
+    </div>
+    <div class="result" id="d-res">
+      <div class="rhead">✦ English Dialogic Reading Session — Gemini AI</div>
+      <div class="rbody" id="d-res-b"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= VOCAB BANK ======= -->
+<div id="tc-vocab" class="tc">
+  <div class="hero">
+    <span class="hero-emoji">📚</span>
+    <div>
+      <h2>English Vocabulary Bank untuk PAUD</h2>
+      <p>Generate daftar kosakata Bahasa Inggris siap pakai per tema — lengkap dengan contoh kalimat sederhana, cara pengucapan, dan aktivitas untuk anak PAUD.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--blue);"></span> ✨ Generate English Vocabulary</div>
+    <div class="ai-row">
+      <div>
+        <label class="ai-label">🎂 Usia Anak</label>
+        <select id="v-age" class="sel">
+          <option>2–3 years old</option>
+          <option selected>3–4 years old</option>
+          <option>4–5 years old</option>
+          <option>5–6 years old</option>
+        </select>
+      </div>
+      <div>
+        <label class="ai-label">🔢 Jumlah Kata Target</label>
+        <select id="v-count" class="sel">
+          <option>8 words</option>
+          <option selected>10 words</option>
+          <option>12 words</option>
+          <option>15 words</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🌈 Tema Kosakata</label>
+      <div class="chips" id="v-tc">
+        <span class="chip on" onclick="pickChip(this,'v-t')">🐾 Animals</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">🌈 Colors</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">📐 Shapes</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">🍎 Food & Fruits</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">👨‍👩‍👧 Family</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">🏠 My Body</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">👗 Clothes</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">🚗 Transport</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">☁️ Weather</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">🎨 Toys</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">💪 Action Verbs</span>
+        <span class="chip" onclick="pickChip(this,'v-t')">😊 Feelings</span>
+      </div>
+      <input type="text" class="inp" id="v-custom" placeholder="Or type your own theme..." />
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🎯 Level Speaking</label>
+      <div class="level-chips">
+        <span class="lchip on" style="background:var(--mint-lt);color:var(--mint-dk);" onclick="pickLevel(this)">🌱 Beginner — single words</span>
+        <span class="lchip" style="background:var(--amber-lt);color:var(--amber-dk);" onclick="pickLevel(this)">🌿 Intermediate — short phrases</span>
+        <span class="lchip" style="background:var(--purple-lt);color:var(--purple-dk);" onclick="pickLevel(this)">🌳 Advanced — simple sentences</span>
+      </div>
+    </div>
+    <div class="mt14">
+      <button class="btn btn-p" onclick="doVocab()" id="btn-vocab">📚 Generate Vocabulary Bank</button>
+    </div>
+    <div class="result" id="v-res">
+      <div class="rhead">✦ English Vocabulary Bank — Gemini AI</div>
+      <div class="rbody" id="v-res-b"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= LESSON PLANNER ======= -->
+<div id="tc-planner" class="tc">
+  <div class="hero">
+    <span class="hero-emoji">📋</span>
+    <div>
+      <h2>Weekly English Speaking Lesson Plan</h2>
+      <p>Generate rencana pelajaran speaking Bahasa Inggris satu minggu yang mengintegrasikan SERE, TPR, Oracy, dan Dialogic Reading secara seimbang dan terstruktur.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle"><span class="dot" style="background:var(--mint);"></span> ✨ Generate Weekly English Lesson Plan</div>
+    <div class="ai-row">
+      <div>
+        <label class="ai-label">🎂 Usia Kelompok</label>
+        <select id="p-age" class="sel">
+          <option>2–3 years old</option>
+          <option>3–4 years old</option>
+          <option selected>4–5 years old</option>
+          <option>5–6 years old</option>
+        </select>
+      </div>
+      <div>
+        <label class="ai-label">👥 Jumlah Anak</label>
+        <select id="p-size" class="sel">
+          <option>3–5 children</option>
+          <option selected>6–10 children</option>
+          <option>11–15 children</option>
+          <option>16–20 children</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt12">
+      <label class="ai-label">⏱️ Durasi Sesi</label>
+      <select id="p-dur" class="sel">
+        <option>15 minutes</option>
+        <option selected>20–30 minutes</option>
+        <option>30–45 minutes</option>
+      </select>
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🌈 Tema Minggu Ini</label>
+      <div class="chips" id="p-tc">
+        <span class="chip on" onclick="pickChip(this,'p-t')">🐾 Animals</span>
+        <span class="chip" onclick="pickChip(this,'p-t')">🌿 Nature</span>
+        <span class="chip" onclick="pickChip(this,'p-t')">👨‍👩‍👧 My Family</span>
+        <span class="chip" onclick="pickChip(this,'p-t')">🚀 Community Helpers</span>
+        <span class="chip" onclick="pickChip(this,'p-t')">🎉 Celebrations</span>
+        <span class="chip" onclick="pickChip(this,'p-t')">🌏 Around the World</span>
+      </div>
+      <input type="text" class="inp" id="p-custom" placeholder="Or type a custom weekly theme..." />
+    </div>
+    <div class="mt12">
+      <label class="ai-label">🌱 Speaking Level Anak</label>
+      <select id="p-level" class="sel">
+        <option>Complete beginners — no English yet</option>
+        <option selected>Early beginners — knows a few words</option>
+        <option>Beginners — can say short phrases</option>
+        <option>Elementary — can make simple sentences</option>
+      </select>
+    </div>
+    <div class="mt14">
+      <button class="btn btn-p" onclick="doPlanner()" id="btn-planner">📋 Generate Weekly English Lesson Plan</button>
+    </div>
+    <div class="result" id="p-res">
+      <div class="rhead">✦ Weekly English Speaking Lesson Plan — Gemini AI</div>
+      <div class="rbody" id="p-res-b"></div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <span class="tip-ic">💡</span>
+    <p>Ingat: konsistensi lebih penting dari kesempurnaan. 20 menit English speaking setiap hari jauh lebih efektif daripada 2 jam seminggu. Buat suasana fun & low-pressure — anak yang tidak takut salah akan jauh lebih cepat berkembang!</p>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GEM = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=';
+let KEY = localStorage.getItem('ls_gem_key') || '';
+let stItem = '';
+let vocabLevel = 'Beginner — single words';
+const sel = (id) => document.getElementById(id);
+const chip = {};
+
+if (KEY) {
+  sel('apiKey').value = KEY;
+  markOK();
+}
+
+function markOK() {
+  sel('apiSt').textContent = '✓ API terhubung';
+  sel('apiSt').classList.add('ok');
+}
+
+function saveKey() {
+  const k = sel('apiKey').value.trim();
+  if (!k) { toast('Masukkan API Key terlebih dahulu!'); return; }
+  KEY = k;
+  localStorage.setItem('ls_gem_key', k);
+  markOK();
+  toast('✓ API Key berhasil disimpan!');
+}
+
+function goTab(id, btn) {
+  document.querySelectorAll('.tc').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
+  sel('tc-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+function goTabId(id) {
+  const b = [...document.querySelectorAll('.ntab')].find(b => b.getAttribute('onclick').includes("'"+id+"'"));
+  if (b) goTab(id, b);
+}
+
+function pickChip(el, g) {
+  const cont = el.closest('.chips');
+  if (cont) cont.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  chip[g] = el.textContent.trim();
+}
+
+function pickLevel(el) {
+  document.querySelectorAll('.lchip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  vocabLevel = el.textContent.trim();
+}
+
+function pickST(el, item) {
+  document.querySelectorAll('.st-item').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  stItem = item;
+  sel('st-custom').value = '';
+}
+
+function toast(msg) {
+  const t = sel('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2800);
+}
+
+function load(btnId, resId, on) {
+  const b = sel(btnId), r = sel(resId);
+  if (on) {
+    if (!b.dataset.orig) b.dataset.orig = b.innerHTML;
+    b.disabled = true;
+    b.innerHTML = '<span class="ld"><span></span><span></span><span></span></span> Generating...';
+    r.classList.remove('on');
+  } else {
+    b.disabled = false;
+    b.innerHTML = b.dataset.orig || '✨ Generate';
+  }
+}
+
+async function callGem(prompt) {
+  if (!KEY) { toast('⚠️ Masukkan API Key Gemini terlebih dahulu!'); return null; }
+  const r = await fetch(GEM + KEY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.82, maxOutputTokens: 1800 }
+    })
+  });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.error?.message || 'API Error'); }
+  const d = await r.json();
+  return d.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+async function run(btnId, resId, resBId, prompt) {
+  load(btnId, resId, true);
+  try {
+    const res = await callGem(prompt);
+    if (res) {
+      sel(resBId).textContent = res;
+      sel(resId).classList.add('on');
+    }
+  } catch(e) { toast('❌ Error: ' + e.message); }
+  load(btnId, resId, false);
+}
+
+// SERE
+// 1. Fungsi Utama (Fungsi yang Anda miliki, dengan kustomisasi parser)
+// 1. Fungsi Utama (Prompt Bersih Tanpa Simbol)
+async function doSERE() {
+  const age = sel('sere-age').value;
+  const media = sel('sere-media').value;
+  const theme = sel('sere-custom').value.trim() || (chip['sere-t'] || '🐾 Animals');
+
+  // Aktifkan pemantau otomatis sebelum run dijalankan
+  observeSereOutput('sere-res-b');
+
+  await run('btn-sere', 'sere-res', 'sere-res-b', `You are an early childhood English language expert specializing in PAUD (Indonesian kindergarten/preschool). Create a complete SERE Framework lesson guide for teaching ENGLISH SPEAKING to young children.
+
+Settings:
+- Children's age: ${age}
+- Stimulation media: ${media}
+- English topic/theme: ${theme}
+- Teaching language: Teacher speaks English, uses Indonesian ONLY as brief translation support
+- Goal: Children produce spoken English words and short phrases
+
+Please write the guide in INDONESIAN (for the teacher to read) but all English scripts/examples must be in ENGLISH.
+
+CRITICAL FORMATTING RULES:
+1. DO NOT use any markdown symbols like hashes (#), dashes/hyphens (-), or asterisks (*) for bullet points, bolding, or dividers.
+2. Separate items or lists using standard numbers (1, 2, 3) or plain text spacing only.
+3. Completely avoid dividers like "---" or "###".
+
+Format your response exactly like this:
+
+🎯 LEARNING OBJECTIVES
+[Write 2-3 specific English speaking outcomes directly here, e.g. 1. Children can say big/small in context]
+
+📸 S — STIMULATE (Cara Memancing Rasa Ingin Tahu)
+[How to present the media — room setup, teacher's opening in English with body language tips]
+
+Teacher's opening script (in English):
+[exact words teacher says to open the session, DO NOT use quotes or bold symbols]
+
+🙌 E — ENCOURAGE (Pertanyaan Pemancing English Speaking)
+1. [easiest question]
+2. [slightly harder]
+3. [...]
+4. [...]
+5. [most challenging for advanced children]
+
+Tips: [Brief Indonesian tip on how to encourage shy children]
+
+👂 R — RESPOND (Cara Merespons Berbagai Jawaban Anak)
+Jika anak menjawab dalam Bahasa Indonesia: [guide]
+Jika anak diam atau malu: [guide]
+Jika anak menjawab dengan 1 kata: [guide]
+Jika anak menjawab dengan kalimat: [guide]
+
+🔭 E — EXPAND (Memperluas Jawaban Anak menjadi Kalimat English Lebih Kaya)
+Give 4 examples of child's simple answer to teacher's expanded English version:
+
+Child says: [word] to Teacher expands: [sentence]
+Child says: [word] to Teacher expands: [...]
+Child says: [word] to Teacher expands: [...]
+Child says: [word] to Teacher expands: [...]
+
+💬 FULL SERE DIALOGUE EXAMPLE
+T: [text]
+C: [text]
+T: [text]
+
+🗣️ TARGET ENGLISH VOCABULARY (5-8 words/phrases for this session)
+[List the key English words or phrases children should be able to say by end of session, use plain numbers like 1, 2, 3]
+
+⭐ TEACHER TIPS
+[Write 3 practical tips in Indonesian for maximizing English speaking output using plain numbers 1, 2, 3]`);
+}
+
+// 2. Fungsi Pemantau Otomatis (MutationObserver)
+function observeSereOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const rawText = target.innerText || target.textContent;
+    
+    // Jika teks lengkap dari Gemini sudah masuk ke HTML, potong menjadi kartu
+    if (rawText && rawText.includes("🎯 LEARNING OBJECTIVES") && !rawText.includes("`")) {
+      obs.disconnect(); // Hentikan pemantauan agar tidak looping
+      buildSereCards(rawText, targetId);
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Pembuat Struktur Kartu HTML
+function buildSereCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  const sections = [
+    { key: "🎯 LEARNING OBJECTIVES", class: "card-objectives" },
+    { key: "📸 S — STIMULATE", class: "card-stimulate" },
+    { key: "🙌 E — ENCOURAGE", class: "card-encourage" },
+    { key: "👂 R — RESPOND", class: "card-respond" },
+    { key: "🔭 E — EXPAND", class: "card-expand" },
+    { key: "💬 FULL SERE DIALOGUE EXAMPLE", class: "card-dialogue" },
+    { key: "🗣️ TARGET ENGLISH VOCABULARY", class: "card-vocabulary" },
+    { key: "⭐ TEACHER TIPS", class: "card-tips" }
+  ];
+
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+    body = body.replace(/\n/g, "<br>"); // Mengubah baris baru menjadi baris HTML
+
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// 2. Fungsi Otomatis Memantau Teks Masuk (Gunakan MutationObserver)
+function observeSereOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    // Ambil teks mentah yang dimasukkan oleh fungsi run() Anda
+    const rawText = target.innerText || target.textContent;
+    
+    // Pastikan teks dari AI sudah lengkap (tidak kosong dan bukan teks "Loading...")
+    if (rawText && rawText.includes("🎯 LEARNING OBJECTIVES") && !rawText.includes("`")) {
+      obs.disconnect(); // Berhenti memantau jika teks sudah lengkap
+      renderSereCards(rawText, targetId); // Ubah menjadi kartu kotak-kotak
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Render Kartu Kotak
+function renderSereCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Kembalikan layout Grid/Kotak 100%
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  // Cari potongan berdasarkan emoji judul yang dikirim oleh Gemini
+  const sections = [
+    { key: "🎯 LEARNING OBJECTIVES", class: "card-objectives" },
+    { key: "📸 S — STIMULATE", class: "card-stimulate" },
+    { key: "🙌 E — ENCOURAGE", class: "card-encourage" },
+    { key: "👂 R — RESPOND", class: "card-respond" },
+    { key: "🔭 E — EXPAND", class: "card-expand" },
+    { key: "💬 FULL SERE DIALOGUE EXAMPLE", class: "card-dialogue" },
+    { key: "🗣️ TARGET ENGLISH VOCABULARY", class: "card-vocabulary" },
+    { key: "⭐ TEACHER TIPS", class: "card-tips" }
+  ];
+
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    // Ambil isi teks, pisahkan dari judulnya
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+
+    // Ubah baris baru menjadi tag break HTML agar rapi
+    body = body.replace(/\n/g, "<br>");
+
+    // Render kembali struktur Kartu HTML agar CSS Anda aktif
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// 2. Fungsi Parser & Render Gambar Kotak (Tambahkan ini di bawah fungsi Anda)
+function renderSereCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Set container agar otomatis menggunakan CSS Grid/Flexbox layout
+  container.className = "sere-grid-container";
+  container.innerHTML = ""; // Bersihkan loading text
+
+  // Daftar section yang dicari berdasarkan emoji/judul prompt
+  const sections = [
+    { key: "🎯 LEARNING OBJECTIVES", class: "card-objectives" },
+    { key: "📸 S — STIMULATE", class: "card-stimulate" },
+    { key: "🙌 E — ENCOURAGE", class: "card-encourage" },
+    { key: "👂 R — RESPOND", class: "card-respond" },
+    { key: "🔭 E — EXPAND", class: "card-expand" },
+    { key: "💬 FULL SERE DIALOGUE EXAMPLE", class: "card-dialogue" },
+    { key: "🗣️ TARGET ENGLISH VOCABULARY", class: "card-vocabulary" },
+    { key: "⭐ TEACHER TIPS", class: "card-tips" }
+  ];
+
+  // Memotong text berdasarkan struktur section
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    // Cari batas akhir teks untuk section ini (yaitu awal dari section berikutnya)
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    // Ambil konten mentah dari section terkait
+    let rawContent = text.substring(startIdx, endIdx).trim();
+    
+    // Pisahkan Judul dan Isinya
+    const title = section.key;
+    let body = rawContent.replace(title, "").trim();
+
+    // Mengubah format baris baru (\n) menjadi tag HTML <br> atau paragraph agar rapi
+    body = body.replace(/\n/g, "<br>");
+
+    // Buat elemen kartu HTML baru
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${title}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// TPR
+// 1. Fungsi Utama (Prompt Bersih Tanpa Simbol Markdown)
+async function doTPR() {
+  const age = sel('tpr-age').value;
+  const count = sel('tpr-count').value;
+  const theme = chip['tpr-t'] || '🐾 Animals';
+  const duration = sel('tpr-dur') ? sel('tpr-dur').value : '15-20 minutes';
+
+  // Aktifkan pemantau otomatis pada elemen target sebelum run dijalankan
+  observeTprOutput('tpr-res-b');
+
+  await run('btn-tpr', 'tpr-res', 'tpr-res-b', `You are a TPR (Total Physical Response) specialist for early childhood English education in Indonesian PAUD settings. Generate a TPR word list for English speaking practice.
+
+Settings:
+- Children's age: ${age}
+- Theme: ${theme}
+- Number of words: ${count}
+- Goal: Children hear, respond with movement, and eventually SAY the English word/command
+
+Write the guide in INDONESIAN (for teachers) but all English scripts must be in English.
+
+CRITICAL FORMATTING RULES:
+1. DO NOT use any markdown symbols like hashes (#), dashes/hyphens (-), or asterisks (*) for bullet points, bolding, or dividers.
+2. Separate items or lists using standard numbers (1, 2, 3) or plain text spacing only.
+3. Completely avoid dividers like "---" or "###".
+
+For EACH word/command, format the text exactly like this:
+
+🎯 [ENGLISH WORD/COMMAND] (Arti: [Indonesian translation])
+Gerakan: [Specific, fun movement description]
+Cara guru mengajarkan:
+Step 1: Teacher says [English command] + demonstrates movement
+Step 2: Say again, children join movement
+Step 3: Say again, encourage children to say it too
+Kalimat guru: [Full English sentence teacher uses while doing the action, DO NOT use quotes]
+Variasi: [One fun variation of the activity]
+
+After all words, add these two exact sections at the very end:
+
+📋 URUTAN SESI TPR (${duration})
+[Step-by-step session flow: warm-up to introduce words to practice to game]
+
+🎮 ENGLISH TPR SONG/CHANT
+[Create a short, simple chant or song using the vocabulary from this list — children say English words while doing movements]
+
+💡 TIPS untuk Anak yang Belum Mau Bicara
+[How to gently progress from movement-only to movement and speaking]`);
+}
+
+// 2. Fungsi Pemantau Otomatis (MutationObserver)
+function observeTprOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const rawText = target.innerText || target.textContent;
+    
+    // Deteksi jika teks lengkap dari AI sudah masuk (ditandai dengan munculnya bagian akhir)
+    if (rawText && rawText.includes("💡 TIPS") && !rawText.includes("`")) {
+      obs.disconnect(); // Hentikan pemantauan agar tidak looping
+      buildTprCards(rawText, targetId);
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Pembuat Struktur Kartu HTML (100% Width Layout)
+function buildTprCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Set container agar memanjang penuh sesuai instruksi CSS Grid
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  // Token pemisah dinamis untuk mendeteksi setiap kata perintah (🎯) dan section akhir
+  const sections = [];
+  const lines = text.split("\n");
+
+  // Cari semua baris yang mengandung target kata perintah baru (🎯)
+  lines.forEach(line => {
+    if (line.trim().startsWith("🎯")) {
+      sections.push({ key: line.trim(), class: "card-tpr-word" });
+    }
+  });
+
+  // Tambahkan 3 section wajib di bagian akhir
+  sections.push(
+    { key: "📋 URUTAN SESI TPR", class: "card-tpr-flow" },
+    { key: "🎮 ENGLISH TPR SONG/CHANT", class: "card-tpr-song" },
+    { key: "💡 TIPS", class: "card-tpr-tips" }
+  );
+
+  // Potong teks berdasarkan susunan token yang ditemukan
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+    body = body.replace(/\n/g, "<br>"); // Konversi baris baru ke HTML break
+
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Show & Tell
+async function doShowTell() {
+  const item = sel('st-custom').value.trim() || stItem;
+  const age = sel('st-age').value;
+  if (!item) { toast('Pilih atau ketik item untuk Show & Tell'); return; }
+  await run('btn-st', 'st-res', 'st-res-b', `You are a Cambridge Oracy specialist for early childhood English education in Indonesian PAUD. Create a complete English Show & Tell guide for young children.
+
+Settings:
+- Item child brings: ${item}
+- Children's age: ${age}
+- Language target: Children speak ENGLISH during Show & Tell
+- Guide language: Write in Indonesian for teacher, but all English scripts in English
+
+Format:
+
+🎤 ENGLISH SHOW & TELL GUIDE: "${item.toUpperCase()}"
+
+📋 PERSIAPAN GURU
+[3 things teacher prepares — including key English vocabulary to pre-teach]
+
+Key English vocabulary to introduce before session:
+"[word 1]", "[word 2]", "[word 3]", "[word 4]", "[word 5]"
+
+1️⃣ OPENING — Teacher models in English (2 minutes)
+Teacher script: "[Teacher demonstrates Show & Tell in English first, modeling what they want children to do]"
+
+2️⃣ CHILD PRESENTING — Scaffolded English (5 minutes)
+Sentence starters to give the presenting child:
+- "This is my ___"
+- "It is [color/size] ___"
+- "I like it because ___"
+- "I got it from ___"
+
+Guiding questions teacher asks the presenting child (in English):
+1. "[Simple question]"
+2. "[...]"
+3. "[...]"
+4. "[...]"
+5. "[More challenging question]"
+
+3️⃣ AUDIENCE QUESTIONS — Children asking in English (3 minutes)
+Sentence starters for the listening children to ask questions:
+- "Do you like ___?"
+- "What color is ___?"
+- "Can you ___?"
+
+Sample questions children can ask:
+"[example]", "[example]", "[example]"
+
+4️⃣ CLOSING — Praise & Summary (2 minutes)
+Teacher's closing script in English: "[...]"
+
+🎯 4 ORACY DIMENSIONS TRAINED
+Physical: [how this session trains pronunciation/voice/eye contact]
+Linguistic: [English vocabulary and sentence patterns practiced]
+Cognitive: [how children organize and express ideas in English]
+Social-Emotional: [confidence building, turn-taking in English]
+
+🗣️ EXPECTED ENGLISH OUTPUT
+[What English words/phrases children should be able to say by end of session]`);
+}
+
+// Oracy Activity
+// 1. Fungsi Utama (Prompt Bersih Tanpa Simbol Markdown)
+async function doOracy() {
+  const dim = sel('o-dim').value;
+  const age = sel('o-age').value;
+
+  // Aktifkan pemantau otomatis pada elemen target sebelum run dijalankan
+  observeOracyOutput('o-res-b');
+
+  await run('btn-oracy', 'o-res', 'o-res-b', `You are a Cambridge Oracy Framework specialist for early childhood English education in Indonesian PAUD. Design an English speaking activity.
+
+Settings:
+- Oracy dimension focus: ${dim}
+- Children's age: ${age}
+- Goal: Children practice SPEAKING ENGLISH in a play-based, low-pressure setting
+
+Write guide in INDONESIAN but all English scripts in English.
+
+CRITICAL FORMATTING RULES:
+1. DO NOT use any markdown symbols like hashes (#), dashes/hyphens (-), or asterisks (*) for bullet points, bolding, or dividers.
+2. Separate items or lists using standard numbers (1, 2, 3) or plain text spacing only.
+3. Completely avoid dividers like "---" or "###".
+
+Format your response exactly like this:
+
+🎯 ACTIVITY NAME (English name)
+[Fun, memorable English name for the activity, DO NOT use quotes or bold symbols]
+
+📖 DESKRIPSI
+[2-3 sentence description in Indonesian]
+
+🛠️ ALAT DAN BAHAN
+[Materials needed, use plain numbers like 1, 2, 3 if listing items]
+
+⏱️ DURASI
+[Specify duration in minutes, e.g. 20 minutes]
+
+📋 LANGKAH LANGKAH
+[Clear step by step in Indonesian, use plain numbers 1, 2, 3, including exact English phrases teacher uses at each step]
+
+🗣️ TARGET ENGLISH PHRASES
+Children will practice saying:
+1. [phrase 1, DO NOT use quotes]
+2. [phrase 2]
+3. [phrase 3]
+4. [phrase 4]
+
+Teacher English facilitation script:
+Opening: [text]
+During: [text]
+Closing: [text]
+
+📊 ASESMEN SEDERHANA
+[Simple observation checklist in Indonesian, use plain numbers 1, 2, 3]
+
+🔄 DIFFERENSIASI
+Untuk anak yang belum mau bicara English: [support strategy]
+Untuk anak yang sudah lancar: [extension or challenge]
+
+🎮 VARIASI PERMAINAN
+[1-2 fun game variations using the same English vocabulary, use plain numbers 1, 2, 3]`);
+}
+
+// 2. Fungsi Pemantau Otomatis (MutationObserver)
+function observeOracyOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const rawText = target.innerText || target.textContent;
+    
+    // Deteksi jika teks lengkap dari AI sudah masuk (ditandai dengan bagian akhir)
+    if (rawText && rawText.includes("🎮 VARIASI") && !rawText.includes("`")) {
+      obs.disconnect(); // Hentikan pemantauan agar tidak looping
+      buildOracyCards(rawText, targetId);
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Pembuat Struktur Kartu HTML (100% Width Layout)
+function buildOracyCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Set container agar memanjang penuh sesuai instruksi CSS Grid
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  // Daftar bagian penanda judul untuk dipotong menjadi kartu terpisah
+  const sections = [
+    { key: "🎯 ACTIVITY NAME", class: "card-oracy-name" },
+    { key: "📖 DESKRIPSI", class: "card-oracy-desc" },
+    { key: "🛠️ ALAT DAN BAHAN", class: "card-oracy-tools" },
+    { key: "⏱️ DURASI", class: "card-oracy-duration" },
+    { key: "📋 LANGKAH LANGKAH", class: "card-oracy-steps" },
+    { key: "🗣️ TARGET ENGLISH PHRASES", class: "card-oracy-phrases" },
+    { key: "📊 ASESMEN SEDERHANA", class: "card-oracy-assess" },
+    { key: "🔄 DIFFERENSIASI", class: "card-oracy-diff" },
+    { key: "🎮 VARIASI PERMAINAN", class: "card-oracy-games" }
+  ];
+
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+    body = body.replace(/\n/g, "<br>"); // Konversi baris baru ke HTML break
+
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Dialogic
+// 1. Fungsi Utama (Prompt Bersih Tanpa Simbol Markdown)
+async function doDialogic() {
+  const book = sel('d-book').value;
+  const age = sel('d-age').value;
+  const title = sel('d-title').value.trim();
+  const focus = chip['d-f'] || '🗣️ New Vocabulary';
+  const bookRef = title ? `"${title}"` : `a ${book}`;
+
+  // Aktifkan pemantau otomatis pada elemen target sebelum run dijalankan
+  observeDialogicOutput('d-res-b');
+
+  await run('btn-dialogic', 'd-res', 'd-res-b', `You are a Dialogic Reading specialist for early childhood English education in Indonesian PAUD settings. Create a complete English Dialogic Reading session using the PEER technique.
+
+Settings:
+- Book: ${bookRef} (${book})
+- Children's age: ${age}
+- English speaking focus: ${focus}
+- Teaching approach: Teacher uses English; Indonesian only for brief comprehension support
+- Goal: Children produce MORE English speech with each PEER cycle
+
+Write the guide in INDONESIAN for the teacher, but all English scripts/dialogues in English.
+
+CRITICAL FORMATTING RULES:
+1. DO NOT use any markdown symbols like hashes (#), dashes/hyphens (-), or asterisks (*) for bullet points, bolding, or dividers.
+2. Separate items or lists using standard numbers (1, 2, 3) or plain text spacing only.
+3. Completely avoid dividers like "---" or "###" or "===".
+
+Format your response exactly like this:
+
+📚 ENGLISH DIALOGIC READING SESSION
+Book: ${bookRef}
+Focus: ${focus}
+
+🌟 BEFORE READING — English Warm-Up (3 minutes)
+Pre-teaching vocabulary:
+[3-5 key English words or phrases to introduce with pictures or actions BEFORE reading, use numbers 1, 2, 3]
+Script: [Teacher English warm-up script with movement or song if applicable, DO NOT use quotes]
+Prediction question: [Ask children in English what they think the book is about]
+
+📖 DURING READING — PEER Technique (main session)
+
+PEER CYCLE 1 (Early pages)
+P PROMPT: [Open-ended English question about the picture or text]
+E EVALUATE: 
+If child says word: [Teacher English response + celebration]
+If child is silent: [Supportive English scaffolding]
+E EXPAND: 
+Child might say [simple English] to Teacher expands [richer English sentence]
+Child might say [text] to Teacher expands [text]
+R REPEAT: [Exact English prompt for child to repeat the expanded sentence]
+
+PEER CYCLE 2 (Middle pages)
+P PROMPT: [More complex English question — prediction or feeling or comparison]
+E EVALUATE: [text]
+E EXPAND: [2 expansion examples]
+R REPEAT: [Repeat prompt]
+
+PEER CYCLE 3 (Final pages)
+P PROMPT: [Higher-order English question — why or what do you think or what happens next]
+E EVALUATE: [text]
+E EXPAND: [2 expansion examples]
+R REPEAT: [Repeat prompt]
+
+🔚 AFTER READING — English Speaking Activity (5 minutes)
+[A short activity where children retell or act out or draw and describe the story in English]
+Script: [Teacher English instructions for the activity]
+
+📝 TARGET ENGLISH VOCABULARY (6-8 words/phrases)
+[Key English words children should know after this session, use numbers 1, 2, 3]
+
+💬 COMPLETE PEER DIALOGUE EXAMPLE
+[A realistic 10-12 line sample dialogue showing PEER in action, with Teacher T and Child C]
+T: [text]
+C: [text]
+T: [text]
+
+⭐ TEACHER NOTES
+[2-3 practical tips in Indonesian for running the session, use numbers 1, 2, 3]`);
+}
+
+// 2. Fungsi Pemantau Otomatis (MutationObserver)
+function observeDialogicOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const rawText = target.innerText || target.textContent;
+    
+    // Deteksi jika teks lengkap dari AI sudah masuk (ditandai dengan bagian akhir)
+    if (rawText && rawText.includes("⭐ TEACHER NOTES") && !rawText.includes("`")) {
+      obs.disconnect(); // Hentikan pemantauan agar tidak looping
+      buildDialogicCards(rawText, targetId);
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Pembuat Struktur Kartu HTML (100% Width Layout)
+function buildDialogicCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Set container agar memanjang penuh sesuai instruksi CSS Grid
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  // Daftar bagian penanda judul untuk dipotong menjadi kartu terpisah
+  const sections = [
+    { key: "📚 ENGLISH DIALOGIC READING SESSION", class: "card-d-session" },
+    { key: "🌟 BEFORE READING", class: "card-d-before" },
+    { key: "📖 DURING READING", class: "card-d-during" },
+    { key: "PEER CYCLE 1", class: "card-d-cycle1" },
+    { key: "PEER CYCLE 2", class: "card-d-cycle2" },
+    { key: "PEER CYCLE 3", class: "card-d-cycle3" },
+    { key: "🔚 AFTER READING", class: "card-d-after" },
+    { key: "📝 TARGET ENGLISH VOCABULARY", class: "card-d-vocab" },
+    { key: "💬 COMPLETE PEER DIALOGUE EXAMPLE", class: "card-d-dialogue" },
+    { key: "⭐ TEACHER NOTES", class: "card-d-notes" }
+  ];
+
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+    body = body.replace(/\n/g, "<br>"); // Konversi baris baru ke HTML break
+
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Vocab
+// 1. Fungsi Utama (Prompt Bersih Tanpa Simbol Markdown)
+async function doVocab() {
+  const age = sel('v-age').value;
+  const count = sel('v-count').value;
+  const theme = sel('v-custom').value.trim() || (chip['v-t'] || '🐾 Animals');
+  
+  // Ambil variabel vocabLevel dari scope luar Anda seperti pada fungsi asli
+  const currentLevel = typeof vocabLevel !== 'undefined' ? vocabLevel : 'appropriate';
+
+  // Aktifkan pemantau otomatis pada elemen target sebelum run dijalankan
+  observeVocabOutput('v-res-b');
+
+  await run('btn-vocab', 'v-res', 'v-res-b', `You are an English vocabulary specialist for PAUD (Indonesian early childhood education). Generate a comprehensive English vocabulary bank.
+
+Settings:
+- Children's age: ${age}
+- Theme: ${theme}
+- Number of words: ${count}
+- Speaking level: ${currentLevel}
+- Context: Indonesian PAUD children learning English as a foreign language
+
+CRITICAL FORMATTING RULES:
+1. DO NOT use any markdown symbols like hashes (#), dashes/hyphens (-), or asterisks (*) for bullet points, bolding, or dividers.
+2. Separate items or lists using standard numbers (1, 2, 3) or plain text spacing only.
+3. Completely avoid dividers like "---" or "###".
+
+For EACH vocabulary word, format the text exactly like this:
+
+🟢 [ENGLISH WORD]
+Arti: [Indonesian translation]
+Pengucapan tips: [Simple phonetic guide for Indonesian teachers, e.g. dibaca: 'kat', DO NOT use quotes]
+Kalimat sederhana untuk anak: [Simple sentence at ${currentLevel} level]
+Yang bisa diucapkan anak: [What the child can realistically SAY at ${currentLevel}]
+Cara mengajarkan: [One fun activity or game to teach this word]
+Kosakata terkait: [2-3 related English words, separate with commas]
+
+After all words, add these three exact sections at the very end:
+
+🎵 CHANT / SONG
+[Create a simple, rhythmic English chant or song using ALL the vocabulary words from this list — appropriate for the speaking level]
+
+🎯 PROGRESSION PATH
+[How to use these words to build from ${currentLevel} toward making full English sentences — practical 3-step guide using plain numbers 1, 2, 3]
+
+📊 QUICK ASSESSMENT CHECKLIST
+[Simple yes or no observation checklist for teachers to track which words each child can recognize vs produce]`);
+}
+
+// 2. Fungsi Pemantau Otomatis (MutationObserver)
+function observeVocabOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const rawText = target.innerText || target.textContent;
+    
+    // Deteksi jika teks lengkap dari AI sudah masuk (ditandai dengan bagian akhir)
+    if (rawText && rawText.includes("📊 QUICK ASSESSMENT") && !rawText.includes("`")) {
+      obs.disconnect(); // Hentikan pemantauan agar tidak looping
+      buildVocabCards(rawText, targetId);
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Pembuat Struktur Kartu HTML (100% Width Layout)
+function buildVocabCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Set container agar memanjang penuh sesuai instruksi CSS Grid
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  const sections = [];
+  const lines = text.split("\n");
+
+  // Cari semua baris yang mengandung target kata kosakata baru (🟢)
+  lines.forEach(line => {
+    if (line.trim().startsWith("🟢")) {
+      sections.push({ key: line.trim(), class: "card-vocab-word" });
+    }
+  });
+
+  // Tambahkan 3 section wajib di bagian akhir
+  sections.push(
+    { key: "🎵 CHANT / SONG", class: "card-vocab-song" },
+    { key: "🎯 PROGRESSION PATH", class: "card-vocab-path" },
+    { key: "📊 QUICK ASSESSMENT CHECKLIST", class: "card-vocab-assess" }
+  );
+
+  // Potong teks berdasarkan susunan token yang ditemukan
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+    body = body.replace(/\n/g, "<br>"); // Konversi baris baru ke HTML break
+
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Planner
+// 1. Fungsi Utama (Prompt Bersih Tanpa Simbol Markdown & Dekorasi Garis)
+async function doPlanner() {
+  const age = sel('p-age').value;
+  const size = sel('p-size').value;
+  const dur = sel('p-dur').value;
+  const theme = sel('p-custom').value.trim() || (chip['p-t'] || '🐾 Animals');
+  const level = sel('p-level').value;
+
+  // Aktifkan pemantau otomatis pada elemen target sebelum run dijalankan
+  observePlannerOutput('p-res-b');
+
+  await run('btn-planner', 'p-res', 'p-res-b', `You are a curriculum specialist for early childhood English education in Indonesian PAUD settings. Create a complete Weekly English Speaking Lesson Plan integrating all 4 frameworks: SERE, TPR, Oracy, and Dialogic Reading.
+
+Settings:
+- Age group: ${age}
+- Class size: ${size}
+- Weekly theme: ${theme}
+- Session duration: ${dur}
+- Children's current English speaking level: ${level}
+- Goal: By end of week, children can speak English words/phrases related to the theme
+
+Write the plan in INDONESIAN for the teacher, but all English scripts in English.
+
+CRITICAL FORMATTING RULES:
+1. DO NOT use any markdown symbols like hashes (#), dashes/hyphens (-), or asterisks (*) for bullet points, bolding, or dividers.
+2. DO NOT use custom divider lines made of symbols like "====" or "____" or "++++".
+3. Separate items or lists using standard numbers (1, 2, 3) or plain text spacing only.
+
+Format your response exactly like this:
+
+📅 WEEKLY ENGLISH SPEAKING LESSON PLAN
+Theme: ${theme} | Age: ${age} | Level: ${level}
+
+🎯 WEEKLY LEARNING OBJECTIVES
+By the end of the week, children will be able to:
+1. [specific English speaking outcome]
+2. [specific English speaking outcome]  
+3. [specific English speaking outcome]
+
+📚 TARGET ENGLISH VOCABULARY
+[List all key English words or phrases for the week, separate with commas]
+
+📋 SENIN — [Activity Name] | Framework: TPR
+Duration: ${dur}
+English Focus: [specific words/phrases]
+Key teacher script: [Opening English script, DO NOT use quotes]
+Activity: [Step-by-step description]
+Expected English output: [What children say]
+Materials: [What's needed]
+
+📋 SELASA — [Activity Name] | Framework: SERE
+Duration: ${dur}
+English Focus: [specific words/phrases]
+Key teacher script: [Opening English script]
+Activity: [Step-by-step description]
+Expected English output: [What children say]
+Materials: [What's needed]
+
+📋 RABU — [Activity Name] | Framework: Oracy (Physical + Linguistic)
+Duration: ${dur}
+English Focus: [specific words/phrases]
+Key teacher script: [Opening English script]
+Activity: [Step-by-step description]
+Expected English output: [What children say]
+Materials: [What's needed]
+
+📋 KAMIS — [Activity Name] | Framework: Dialogic Reading
+Duration: ${dur}
+English Focus: [specific words/phrases]
+Book suggestion: [Suggested English picture book title related to theme]
+Key teacher script: [Opening English script]
+PEER highlights: [Key PEER moments to focus on]
+Expected English output: [What children say]
+
+📋 JUMAT — [Activity Name] | Framework: Oracy Show & Tell (English)
+Duration: ${dur}
+English Focus: [consolidation of week's vocabulary]
+Show & Tell item: [Suggested item related to theme]
+Key teacher script: [Opening English script]
+Expected English output: [What children say — consolidating the week]
+
+🗣️ ENGLISH PHRASES PROGRESSION TRACKER
+[Show how English output should GROW from Monday to Friday, e.g. Monday single words to Friday 3-4 word phrases]
+
+📊 WEEKLY ASSESSMENT — Simple Observation Guide
+[Quick checklist for teacher to use each day, use plain numbers 1, 2, 3]
+
+💡 DIFFERENTIATION STRATEGIES
+Untuk anak yang masih malu bicara English: [Specific support]
+Untuk anak yang sudah percaya diri: [Extension or challenge]
+Cara melibatkan semua anak: [Inclusion tips]
+
+🎵 WEEKLY ENGLISH CHANT
+[Create a simple chant or song using the week's vocabulary that can be used EVERY DAY as an opener or closer]`);
+}
+
+// 2. Fungsi Pemantau Otomatis (MutationObserver)
+function observePlannerOutput(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const rawText = target.innerText || target.textContent;
+    
+    // Deteksi jika teks lengkap dari AI sudah masuk (ditandai dengan bagian akhir)
+    if (rawText && rawText.includes("🎵 WEEKLY") && !rawText.includes("`")) {
+      obs.disconnect(); // Hentikan pemantauan agar tidak looping
+      buildPlannerCards(rawText, targetId);
+    }
+  });
+
+  observer.observe(target, { childList: true, characterData: true, subtree: true });
+}
+
+// 3. Fungsi Pembuat Struktur Kartu HTML (100% Width Layout)
+function buildPlannerCards(text, targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  // Set container agar memanjang penuh sesuai instruksi CSS Grid
+  container.className = "sere-grid-container";
+  container.innerHTML = "";
+
+  // Daftar bagian penanda judul untuk dipotong menjadi kartu terpisah
+  const sections = [
+    { key: "📅 WEEKLY ENGLISH SPEAKING LESSON PLAN", class: "card-p-header" },
+    { key: "🎯 WEEKLY LEARNING OBJECTIVES", class: "card-p-objectives" },
+    { key: "📚 TARGET ENGLISH VOCABULARY", class: "card-p-vocab" },
+    { key: "📋 SENIN", class: "card-p-mon" },
+    { key: "📋 SELASA", class: "card-p-tue" },
+    { key: "📋 RABU", class: "card-p-wed" },
+    { key: "📋 KAMIS", class: "card-p-thu" },
+    { key: "📋 JUMAT", class: "card-p-fri" },
+    { key: "🗣️ ENGLISH PHRASES PROGRESSION TRACKER", class: "card-p-tracker" },
+    { key: "📊 WEEKLY ASSESSMENT", class: "card-p-assess" },
+    { key: "💡 DIFFERENTIATION STRATEGIES", class: "card-p-diff" },
+    { key: "🎵 WEEKLY ENGLISH CHANT", class: "card-p-chant" }
+  ];
+
+  sections.forEach((section, index) => {
+    const startIdx = text.indexOf(section.key);
+    if (startIdx === -1) return;
+
+    let endIdx = text.length;
+    for (let i = index + 1; i < sections.length; i++) {
+      const nextIdx = text.indexOf(sections[i].key);
+      if (nextIdx !== -1 && nextIdx > startIdx) {
+        endIdx = nextIdx;
+        break;
+      }
+    }
+
+    let body = text.substring(startIdx, endIdx).replace(section.key, "").trim();
+    body = body.replace(/\n/g, "<br>"); // Konversi baris baru ke HTML break
+
+    const card = document.createElement("div");
+    card.className = `sere-card ${section.class}`;
+    card.innerHTML = `
+      <div class="sere-card-title">${section.key}</div>
+      <div class="sere-card-body">${body}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// TPR Interactive Cards
+const tprData = [
+  { en:'Jump!', id:'Lompat', icon:'🦘', instr:'Lompat di tempat dengan kedua kaki', say:'Teacher says: "Jump! Jump! Jump!" — jump each time' },
+  { en:'Fly!', id:'Terbang', icon:'🦅', instr:'Rentangkan tangan seperti sayap, ayun perlahan', say:'Teacher says: "Fly like a bird! Flap your wings!" while flying' },
+  { en:'Run!', id:'Lari', icon:'🏃', instr:'Lari di tempat, angkat lutut tinggi', say:'Teacher says: "Run! Run fast! Faster!" with excitement' },
+  { en:'Sleep!', id:'Tidur', icon:'😴', instr:'Letakkan tangan di pipi, pejamkan mata', say:'Teacher says: "Shhh... sleep... goodnight!" softly' },
+  { en:'Big!', id:'Besar', icon:'🐘', instr:'Rentangkan tangan & kaki selebar mungkin', say:'Teacher says: "BIG! So big! HUGE!" with big gestures' },
+  { en:'Small!', id:'Kecil', icon:'🐭', instr:'Jongkok rendah, buat badan sekecil mungkin', say:'Teacher says: "Small... tiny... so little!" in a tiny voice' },
+  { en:'Swim!', id:'Berenang', icon:'🏊', instr:'Gerakkan tangan seperti gaya bebas', say:'Teacher says: "Swim! Arms out! Swim to me!"' },
+  { en:'Clap!', id:'Tepuk', icon:'👏', instr:'Tepuk tangan bersama dengan ritme', say:'Teacher says: "Clap! Clap! Clap your hands!"' },
+  { en:'Eat!', id:'Makan', icon:'🍽️', instr:'Simulasikan menyuapkan makanan ke mulut', say:'Teacher says: "Yummy! Eat! Eat it all up!"' },
+  { en:'Sing!', id:'Bernyanyi', icon:'🎵', instr:'Buka mulut lebar, tangan di dada seperti penyanyi', say:'Teacher says: "Sing! La la la! Your turn — sing!"' },
+  { en:'Dance!', id:'Menari', icon:'💃', instr:'Goyang badan ke kiri dan kanan dengan ceria', say:'Teacher says: "Dance! Shake it! Let\'s dance together!"' },
+  { en:'Roar!', id:'Mengaum', icon:'🦁', instr:'Buka mulut lebar, tangan membentuk cakar singa', say:'Teacher says: "ROAR like a lion! BIG roar!"' },
+];
+
+function buildTPR() {
+  sel('tpr-grid').innerHTML = tprData.map((w,i) =>
+    `<div class="tpr-c" onclick="showTPR(${i})">
+      <div class="tpr-icon">${w.icon}</div>
+      <div class="tpr-en">${w.en}</div>
+      <div class="tpr-id">${w.id}</div>
+    </div>`
+  ).join('');
+}
+buildTPR();
+
+function showTPR(i) {
+  const w = tprData[i];
+  document.querySelectorAll('.tpr-c').forEach((c,j) => c.classList.toggle('on', j===i));
+  sel('tpr-big').textContent = w.icon + ' ' + w.en;
+  sel('tpr-instr').textContent = '👆 Gerakan: ' + w.instr;
+  sel('tpr-say').innerHTML = '🗣️ ' + w.say;
+  sel('tpr-box').classList.add('on');
+}
+
+// Init selections
+chip['sere-t'] = '🐾 Animals';
+chip['tpr-t'] = '🐾 Animals';
+chip['d-f'] = '🗣️ New Vocabulary';
+chip['p-t'] = '🐾 Animals';
+chip['v-t'] = '🐾 Animals';
+</script>
+</body>
+</html>
