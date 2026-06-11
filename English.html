@@ -318,8 +318,28 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 /* ===== PRINT STYLESHEET REVISED ===== */
 @media print {
   /* Sembunyikan navigasi, header input, tombol, dan elemen non-cetak */
-  body * { visibility: hidden; }
-  #print-area, #print-area * { visibility: visible; }
+  /* ===== PRINT STYLESHEET REVISED ===== */
+@media print {
+  /* Sembunyikan semua elemen di dalam body, KECUALI #print-area */
+  body > *:not(#print-area) {
+    display: none !important;
+  }
+
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    display: block !important;
+  }
+  
+  /* Hapus baris lama: body * { visibility: hidden; } */
+  /* Hapus baris lama: #print-area, #print-area * { visibility: visible; } */
+
+  /* ... Sisa CSS print ke bawah (seperti .print-header, .sere-grid-container, dll) tetap biarkan saja ... */
 
   #print-area {
     position: absolute;
