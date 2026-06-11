@@ -2341,21 +2341,16 @@ if (isGrid) {
       Digenerate oleh Little Speakers — English Speaking PAUD · ${tanggal}
     </div>
   `;
-
-  // Tampilkan print-area, cetak, lalu sembunyikan kembali
+  
+ // Tampilkan print-area, cetak, lalu sembunyikan kembali
   printArea.style.display = 'block';
-
-  // Gunakan requestAnimationFrame + setTimeout lebih lama khusus mobile
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      window.print();
-      
-      // Berikan delay sebelum menyembunyikan area cetak kembali
-      setTimeout(() => {
-        printArea.style.display = 'none';
-      }, 1000);
-    }, 3000); // Angka 1500ms memberi waktu bagi browser mobile untuk merender text & warna
-  });
+  
+  // Sedikit delay agar DOM render dulu
+  setTimeout(() => {
+    window.print();
+    // Kembalikan seperti semula setelah cetak selesai
+    printArea.style.display = 'none';
+  }, 500);
 }
 
 // Bersihkan print-area setelah dialog print ditutup
