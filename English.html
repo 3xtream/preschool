@@ -315,6 +315,68 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 }
 
 /* ===== PRINT STYLESHEET (FIXED — mobile compatible) ===== */
+  /* ── PRINT STYLESHEET UNTUK ENGLISH (1) ── */
+@media print {
+    /* 1. Sembunyikan semua elemen UI/Tombol interaktif agar tidak ikut tercetak */
+    .api-config-box,
+    .streak-container,
+    .type-filter-section,
+    .btn-generate,
+    #writing-area,
+    #loading-status,
+    .action-buttons,
+    header p.subtitle,
+    button, 
+    input {
+        display: none !important;
+    }
+
+    /* 2. MATIKAN FLEXBOX & PAKSA MENJADI BLOCK (Kunci utama agar tidak kosong di Android) */
+    html, body {
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;       /* Ubah dari flex ke block */
+        height: auto !important;          /* Batalkan tinggi penuh jika ada */
+        overflow: visible !important;     /* Pastikan konten yang panjang tidak terpotong */
+    }
+
+    /* 3. Ratakan Container ke Ukuran Penuh Layar Kertas */
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+        position: static !important;
+    }
+
+    /* 4. Pertahankan warna asli/badge evaluasi saat dicetak */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* 5. Cegah baris tabel atau elemen penting terpotong di tengah halaman */
+    tr {
+        page-break-inside: avoid;
+    }
+    
+    .feedback-card {
+        border: none !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    /* 6. Atur lampiran gambar agar responsif dan tidak merusak layout cetak */
+    img, .fb-print-preview {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+    }
+}
 function downloadPDF() {
     window.print();
 }</style>
