@@ -316,37 +316,43 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 
 /* ===== PRINT STYLESHEET REVISED ===== */
 /* Sembunyikan print-area pada mode layar biasa */
+/* Trik Off-Screen: Elemen tetap dirender browser mobile tapi tidak terlihat di layar */
 #print-area {
-  display: none;
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-/* Aturan khusus saat cetak/Save PDF */
 @media print {
-  /* 1. Sembunyikan semua elemen aplikasi utama */
+  /* 1. Sembunyikan elemen utama aplikasi */
   body > *:not(#print-area) {
     display: none !important;
   }
 
-  /* 2. Paksa html dan body menjadi block agar tidak menghasilkan halaman kosong di mobile */
+  /* 2. Normalkan html & body untuk cetak */
   html, body {
     display: block !important;
     height: auto !important;
     overflow: visible !important;
-    background: white !important;
+    background: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* 3. Tampilkan print-area secara mutlak hanya saat dicetak */
+  /* 3. Kembalikan posisi print-area ke dalam kertas cetak */
   #print-area {
     display: block !important;
     position: static !important;
+    opacity: 1 !important;
     width: 100% !important;
     height: auto !important;
     overflow: visible !important;
   }
 
-  /* 4. Matikan Grid/Flex pada kontainer hasil AI agar susunannya mengalir vertikal di PDF mobile */
+  /* 4. Paksa susunan vertikal agar rapi di PDF mobile */
   .sere-grid-container {
     display: block !important;
   }
@@ -356,6 +362,8 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     margin-bottom: 20px !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
   }
 }
 </style>
