@@ -2351,16 +2351,7 @@ if (isGrid) {
     // Kembalikan seperti semula setelah cetak selesai
     printArea.style.display = 'none';
   }, 500);
-}
-
-// Bersihkan print-area setelah dialog print ditutup
-window.addEventListener('afterprint', () => {
-  const printArea = document.getElementById('print-area');
-  if (printArea) {
-    printArea.style.display = 'none';
-    printArea.innerHTML = '';
-  }
-});
+};
 </script>
 </body>
 </html>
