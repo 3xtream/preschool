@@ -2244,18 +2244,11 @@ function savePDF(bodyId, judulDokumen) {
   `;
   
   // Langsung panggil print tanpa mengubah display lewat JS
-  // Delay 3000ms memberikan waktu browser mobile menyusun teks & font baru
+  // Delay 500ms memberikan waktu browser mobile menyusun teks & font baru
   setTimeout(() => {
     window.print();
-  }, 3000);
+  }, 500);
 }
-
-// Bersihkan area setelah cetak selesai
-window.addEventListener('afterprint', () => {
-  const printArea = document.getElementById('print-area');
-  if (printArea) {
-    printArea.innerHTML = '';
-  }
 });
 
 </script>
