@@ -314,54 +314,41 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   justify-content: space-between;
 }
 
-/* ===== PRINT STYLESHEET ===== */
-/* ===== PRINT STYLESHEET REVISED ===== */
+/* ===== PRINT STYLESHEET (FIXED — mobile compatible) ===== */
 @media print {
-  /* Sembunyikan navigasi, header input, tombol, dan elemen non-cetak */
-  /* ===== PRINT STYLESHEET REVISED ===== */
-@media print {
-  /* Sembunyikan semua elemen di dalam body, KECUALI #print-area */
+  /* Sembunyikan semua elemen KECUALI #print-area */
   body > *:not(#print-area) {
     display: none !important;
+    visibility: hidden !important;
   }
 
+  /* #print-area pakai static/block — bukan absolute agar mobile browser render benar */
   #print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #fff;
-    padding: 0;
-    margin: 0;
     display: block !important;
+    visibility: visible !important;
+    position: static !important;
+    width: 100% !important;
+    background: #fff !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
-  
-  /* Hapus baris lama: body * { visibility: hidden; } */
-  /* Hapus baris lama: #print-area, #print-area * { visibility: visible; } */
 
-  /* ... Sisa CSS print ke bawah (seperti .print-header, .sere-grid-container, dll) tetap biarkan saja ... */
-
-  #print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #fff;
-    padding: 0;
-    margin: 0;
+  /* Paksa semua child #print-area visible */
+  #print-area * {
+    visibility: visible !important;
   }
 
   /* Header Dokumen di PDF */
   .print-header {
     background: linear-gradient(135deg, #064a35 0%, #0f6e56 60%, #1d9e75 100%) !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     color: #fff !important;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 25px;
   }
-  
+
   .print-header h1 {
     font-size: 22px;
     font-weight: 800;
@@ -393,10 +380,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
     white-space: pre-wrap;
   }
 
-  /* Layout Kartu / Grid Supaya Tidak Berantakan */
+  /* Layout Kartu / Grid — flex column agar aman dari page-break */
   .sere-grid-container {
     display: flex !important;
-    flex-direction: column !important; /* Ubah grid ke list vertikal agar aman dari page-break */
+    flex-direction: column !important;
     background: transparent !important;
     gap: 16px !important;
     padding: 0 10px !important;
@@ -404,8 +391,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 
   .sere-card {
     display: block !important;
-    page-break-inside: avoid !important; /* Mencegah kartu terpotong di tengah halaman */
+    page-break-inside: avoid !important;
     break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     border-radius: 8px !important;
@@ -429,13 +418,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
     line-height: 1.5;
   }
 
-  /* Memaksa Warna Border Atas Kartu Muncul di PDF */
-  .sere-card[class*="card-"] {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  /* Reset/Force Border Colors */
+  /* Force Border Colors Kartu */
   .card-objectives, .card-p-objectives, .card-oracy-name { border-top: 6px solid #e74c3c !important; }
   .card-stimulate, .card-p-tue, .card-oracy-desc { border-top: 6px solid #3498db !important; }
   .card-encourage, .card-p-diff, .card-d-before { border-top: 6px solid #f1c40f !important; }
