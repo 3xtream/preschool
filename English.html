@@ -314,9 +314,8 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   justify-content: space-between;
 }
 
-/* ===== PRINT STYLESHEET REVISED ===== */
+  /* ===== PRINT STYLESHEET REVISED ===== */
 /* Sembunyikan print-area pada mode layar biasa */
-/* Trik Off-Screen: Elemen tetap dirender browser mobile tapi tidak terlihat di layar */
 #print-area {
   position: absolute;
   left: -9999px;
@@ -332,17 +331,26 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
     display: none !important;
   }
 
-  /* 2. Normalkan html & body untuk cetak */
+  /* 2. PAKSA BROWSER (DESKTOP & MOBILE) CETAK WARNA & BORDER ACCENT */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* 3. Normalkan html & body untuk cetak */
   html, body {
     display: block !important;
     height: auto !important;
     overflow: visible !important;
     background: #ffffff !important;
+    color: #132b1e !important;
+    font-family: 'Nunito', sans-serif !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* 3. Kembalikan posisi print-area ke dalam kertas cetak */
+  /* 4. Kembalikan posisi print-area ke halaman cetak */
   #print-area {
     display: block !important;
     position: static !important;
@@ -350,20 +358,87 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
     width: 100% !important;
     height: auto !important;
     overflow: visible !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
   }
 
-  /* 4. Paksa susunan vertikal agar rapi di PDF mobile */
+  /* Style Header & Footer Dokumen Cetak */
+  .print-header {
+    text-align: center !important;
+    border-bottom: 3px double #1D9E75 !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 25px !important;
+  }
+  .print-header h1 {
+    font-family: 'Baloo 2', cursive !important;
+    color: #1D9E75 !important;
+    font-size: 22px !important;
+    margin: 0 0 5px 0 !important;
+  }
+  .print-meta {
+    font-size: 12px !important;
+    color: #456b54 !important;
+  }
+  .print-footer {
+    text-align: center !important;
+    font-size: 11px !important;
+    color: #456b54 !important;
+    border-top: 1px solid #e2e8f0 !important;
+    padding-top: 10px !important;
+    margin-top: 40px !important;
+  }
+
+  /* 5. Pertahankan Grid 2 Kolom untuk Cetak Layar Desktop */
   .sere-grid-container {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    width: 100% !important;
+    background: transparent !important;
+    padding: 0 !important;
   }
 
+  /* 6. Amankan Border-Top Warna-Warni Kartu AI agar Tidak Hilang */
   .sere-card {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #ffffff !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    box-shadow: none !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    margin-bottom: 20px !important;
-    background: #fff !important;
-    border: 1px solid #ddd !important;
+    margin-bottom: 0px !important; /* Diatur oleh gap grid */
+    
+    /* Gunakan border terpisah agar tidak menimpa border-top bawaan kartu */
+    border-left: 1px solid #e2e8f0 !important;
+    border-right: 1px solid #e2e8f0 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+
+  .sere-card-title {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #333333 !important;
+    border-bottom: 2px solid #f0f0f0 !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .sere-card-body {
+    font-size: 12px !important;
+    color: #4a4a4a !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 7. Paksa Turun Menjadi 1 Kolom Hanya Saat Dicetak dari Smartphone */
+  @media (max-width: 768px) {
+    .sere-grid-container {
+      display: block !important;
+    }
+    .sere-card {
+      margin-bottom: 15px !important;
+    }
   }
 }
 </style>
