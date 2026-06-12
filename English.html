@@ -314,56 +314,152 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   justify-content: space-between;
 }
 
+/* ===== PRINT STYLESHEET ===== */
 /* ===== PRINT STYLESHEET REVISED ===== */
-/* Sembunyikan print-area pada mode layar biasa */
-/* Trik Off-Screen: Elemen tetap dirender browser mobile tapi tidak terlihat di layar */
-#print-area {
-  position: absolute;
-  left: -9999px;
-  top: -9999px;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-}
-
 @media print {
-  /* 1. Sembunyikan elemen utama aplikasi */
+  /* Sembunyikan navigasi, header input, tombol, dan elemen non-cetak */
+  /* ===== PRINT STYLESHEET REVISED ===== */
+@media print {
+  /* Sembunyikan semua elemen di dalam body, KECUALI #print-area */
   body > *:not(#print-area) {
     display: none !important;
   }
 
-  /* 2. Normalkan html & body untuk cetak */
-  html, body {
-    display: block !important;
-    height: auto !important;
-    overflow: visible !important;
-    background: #ffffff !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* 3. Kembalikan posisi print-area ke dalam kertas cetak */
   #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    padding: 0;
+    margin: 0;
     display: block !important;
-    position: static !important;
-    opacity: 1 !important;
-    width: 100% !important;
-    height: auto !important;
-    overflow: visible !important;
+  }
+  
+  /* Hapus baris lama: body * { visibility: hidden; } */
+  /* Hapus baris lama: #print-area, #print-area * { visibility: visible; } */
+
+  /* ... Sisa CSS print ke bawah (seperti .print-header, .sere-grid-container, dll) tetap biarkan saja ... */
+
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    padding: 0;
+    margin: 0;
   }
 
-  /* 4. Paksa susunan vertikal agar rapi di PDF mobile */
+  /* Header Dokumen di PDF */
+  .print-header {
+    background: linear-gradient(135deg, #064a35 0%, #0f6e56 60%, #1d9e75 100%) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: #fff !important;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+  }
+  
+  .print-header h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff !important;
+    margin-bottom: 5px;
+    font-family: 'Baloo 2', cursive;
+  }
+
+  .print-header p {
+    font-size: 12px;
+    color: rgba(255,255,255,.9) !important;
+  }
+
+  .print-header .print-meta {
+    margin-top: 10px;
+    font-size: 11px;
+    color: rgba(255,255,255,.8) !important;
+    border-top: 1px solid rgba(255,255,255,.2);
+    padding-top: 8px;
+  }
+
+  /* Konten Text Biasa */
+  .print-content {
+    padding: 0 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    color: #1a1a1a;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  /* Layout Kartu / Grid Supaya Tidak Berantakan */
   .sere-grid-container {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important; /* Ubah grid ke list vertikal agar aman dari page-break */
+    background: transparent !important;
+    gap: 16px !important;
+    padding: 0 10px !important;
   }
 
   .sere-card {
     display: block !important;
-    page-break-inside: avoid !important;
+    page-break-inside: avoid !important; /* Mencegah kartu terpotong di tengah halaman */
     break-inside: avoid !important;
-    margin-bottom: 20px !important;
-    background: #fff !important;
-    border: 1px solid #ddd !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 18px !important;
+    margin-bottom: 15px !important;
+    box-shadow: none !important;
+  }
+
+  .sere-card-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2d3748 !important;
+    border-bottom: 1px solid #edf2f7 !important;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+
+  .sere-card-body {
+    font-size: 12.5px;
+    color: #4a5568 !important;
+    line-height: 1.5;
+  }
+
+  /* Memaksa Warna Border Atas Kartu Muncul di PDF */
+  .sere-card[class*="card-"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Reset/Force Border Colors */
+  .card-objectives, .card-p-objectives, .card-oracy-name { border-top: 6px solid #e74c3c !important; }
+  .card-stimulate, .card-p-tue, .card-oracy-desc { border-top: 6px solid #3498db !important; }
+  .card-encourage, .card-p-diff, .card-d-before { border-top: 6px solid #f1c40f !important; }
+  .card-respond, .card-p-fri, .card-vocab-word, .card-tpr-word { border-top: 6px solid #2ecc71 !important; }
+  .card-expand, .card-p-wed, .card-vocab-song, .card-tpr-song { border-top: 6px solid #9b59b6 !important; }
+  .card-dialogue, .card-p-mon, .card-oracy-assess { border-top: 6px solid #1abc9c !important; }
+  .card-vocabulary, .card-p-tracker, .card-tpr-flow { border-top: 6px solid #34495e !important; }
+  .card-tips, .card-p-chant, .card-tpr-tips { border-top: 6px solid #e67e22 !important; }
+  .card-p-header, .card-d-session { border-top: 6px solid #2c3e50 !important; }
+  .card-p-vocab, .card-d-vocab { border-top: 6px solid #7f8c8d !important; }
+
+  .print-footer {
+    text-align: center;
+    font-size: 10px;
+    color: #718096 !important;
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    margin: 15mm 15mm;
+    size: A4 portrait;
   }
 }
 </style>
@@ -2212,20 +2308,23 @@ function savePDF(bodyId, judulDokumen) {
   const bodyEl = document.getElementById(bodyId);
   if (!bodyEl) return;
 
+  // Ambil konten — bisa berupa teks biasa ATAU kartu grid (planner)
   const isGrid = bodyEl.classList.contains('sere-grid-container');
   
+  // Timestamp untuk footer
   const now = new Date();
   const tanggal = now.toLocaleDateString('id-ID', { 
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
   });
   const jam = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
-  let isiKonten = "";
-  if (isGrid) {
-    isiKonten = `<div class="sere-grid-container">${bodyEl.innerHTML}</div>`;
-  } else {
-    isiKonten = `<div class="print-content">${bodyEl.innerHTML}</div>`;
-  }
+// Cuplikan logika fungsi print Anda
+if (isGrid) {
+  // Pastikan membungkus ulang konten dengan class container grid yang telah diubah ke flex-col
+  isiKonten = `<div class="sere-grid-container">${bodyEl.innerHTML}</div>`;
+} else {
+  isiKonten = `<div class="print-content">${bodyEl.innerHTML}</div>`;
+}
 
   // Bangun print-area HTML
   const printArea = document.getElementById('print-area');
@@ -2243,13 +2342,25 @@ function savePDF(bodyId, judulDokumen) {
     </div>
   `;
   
-  // Langsung panggil print tanpa mengubah display lewat JS
-  // Delay 500ms memberikan waktu browser mobile menyusun teks & font baru
+ // Tampilkan print-area, cetak, lalu sembunyikan kembali
+  printArea.style.display = 'block';
+  
+  // Sedikit delay agar DOM render dulu
   setTimeout(() => {
     window.print();
+    // Kembalikan seperti semula setelah cetak selesai
+    printArea.style.display = 'none';
   }, 500);
-};
+}
 
+// Bersihkan print-area setelah dialog print ditutup
+window.addEventListener('afterprint', () => {
+  const printArea = document.getElementById('print-area');
+  if (printArea) {
+    printArea.style.display = 'none';
+    printArea.innerHTML = '';
+  }
+});
 </script>
 </body>
 </html>
