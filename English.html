@@ -2236,10 +2236,10 @@ function savePDF(bodyId, judulDokumen) {
   `;
   
   // Langsung panggil print tanpa mengubah display lewat JS
-  // Delay 500ms memberikan waktu browser mobile menyusun teks & font baru
+  // Delay 3000ms memberikan waktu browser mobile menyusun teks & font baru
   setTimeout(() => {
     window.print();
-  }, 500);
+  }, 3000);
 }
 
 // Bersihkan area setelah cetak selesai
